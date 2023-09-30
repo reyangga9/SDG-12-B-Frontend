@@ -3,6 +3,7 @@ import './index.css'
 import HomeLayout from './layouts/HomeLayout'
 import HomePage from './pages/HomePage'
 
+
 const router = createBrowserRouter([
   {
     element: <HomeLayout />,

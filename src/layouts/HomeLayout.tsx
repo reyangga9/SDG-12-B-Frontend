@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const HomeLayout: React.FC = () => {
@@ -8,7 +8,7 @@ const HomeLayout: React.FC = () => {
 
     return (
         <>
-            <Navbar items={navbarItems} />
+            <Header items={navbarItems} />
             <main>
                 <Outlet />
             </main>
