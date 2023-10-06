@@ -3,12 +3,11 @@ import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const HomeLayout: React.FC = () => {
-    const navbarItems: string[] = ['Home', 'Recomendations'];
+const HomeLayout = () => {
 
     return (
         <>
-            <Header items={navbarItems} />
+            <Header />
             <main>
                 <Outlet />
             </main>
