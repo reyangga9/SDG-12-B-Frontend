@@ -1,17 +1,19 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/FoodGuardian-logo.png';
+import logo from '~/assets/FoodGuardian-logo.png';
 import { navLinks } from './constants';
 import { LuSearch } from 'react-icons/lu';
 
-
 const Header = () => {
     return (
-        <header className='container mx-auto'>
-            <div className="navbar bg-base-100">
+        <header className='bg-white w-full border-b-2 fixed top-0 left-0 z-50'>
+            <div className="navbar container mx-auto">
                 <div className="flex-1">
-                    <div id="logo" className="w-40">
-                        <img src={logo} alt="" />
-                    </div>
+                    <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+                        <div id="logo" className="w-40">
+                            <img src={logo} alt="" />
+                        </div>
+                    </Link>
                     <ul className="menu menu-horizontal px-1 font-semibold ml-5">
                         {navLinks.map((item, index) => (
                             <li key={index}>
@@ -26,7 +28,7 @@ const Header = () => {
                     <button id='search' className="btn btn-ghost btn-circle">
                         <LuSearch size={20} />
                     </button>
-                    <ul id='' className='menu menu-horizontal px-1 font-semibold'>
+                    <ul className='menu menu-horizontal px-1 font-semibold'>
                         <li>
                             <Link to='/login'>
                                 Login
