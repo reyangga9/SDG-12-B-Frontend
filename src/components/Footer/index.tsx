@@ -5,7 +5,7 @@ const Footer = () => {
     return (
 
         <footer className="footer footer-center p-10 bg-[#34A853] text-white font-medium rounded">
-            <nav className="grid grid-flow-col gap-4">
+            <nav className="grid sm:grid-flow-col gap-4">
                 {navLinks.map((item, index) => (
                     <div key={index} className="px-5 py-2">
                         <Link className="text-base hover:underline" to={item.url}>

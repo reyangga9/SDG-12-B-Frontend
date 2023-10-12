@@ -1,23 +1,45 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '~/assets/FoodGuardian-logo.png';
 import { navLinks } from './constants';
 import { LuSearch } from 'react-icons/lu';
 
 const Header = () => {
+    const location = useLocation();
     return (
-        <header className='bg-white w-full border-b-2 fixed top-0 left-0 z-50'>
-            <div className="navbar container mx-auto">
+        <header className='bg-white w-full border-b-2 fixed top-0 left-0 z-50 '>
+            <div className="navbar p-1 container mx-auto">
                 <div className="flex-1">
+                    <div className='md:hidden'>
+                        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+                        <div className="drawer-content">
+                            {/* Page content here */}
+                            <label htmlFor="my-drawer" className="btn btn-ghost btn-circle drawer-button text-2xl">
+                                ☰
+                            </label>
+                        </div>
+                        <div className="drawer-side">
+                            <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+                            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                                {/* Sidebar content here */}
+                                {navLinks.map((item, index) => (
+                                    <li key={index}>
+                                        <Link to={item.url} className={location.pathname === item.url ? 'text-primary' : ''}>
+                                            {item.text}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
                     <Link to="/" onClick={() => window.scrollTo(0, 0)}>
                         <div id="logo" className="w-40">
                             <img src={logo} alt="" />
                         </div>
                     </Link>
-                    <ul className="menu menu-horizontal px-1 font-semibold ml-5">
+                    <ul className="menu menu-horizontal px-1 font-semibold ml-5 max-md:hidden">
                         {navLinks.map((item, index) => (
-                            <li key={index}>
-                                <Link to={item.url}>
+                            <li key={index} className={index === 4 ? 'md:hidden' : ''}>
+                                <Link to={item.url} className={location.pathname === item.url ? 'text-primary' : ''}>
                                     {item.text}
                                 </Link>
                             </li>
@@ -28,9 +50,9 @@ const Header = () => {
                     <button id='search' className="btn btn-ghost btn-circle">
                         <LuSearch size={20} />
                     </button>
-                    <ul className='menu menu-horizontal px-1 font-semibold'>
+                    <ul className='menu menu-horizontal px-1 font-semibold max-md:hidden'>
                         <li>
-                            <Link to='/login'>
+                            <Link to='/login' className={location.pathname === '/login' ? 'text-primary' : ''}>
                                 Login
                             </Link>
                         </li>

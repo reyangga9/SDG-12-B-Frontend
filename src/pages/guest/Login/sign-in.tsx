@@ -19,7 +19,7 @@ const SignIn = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'https://sdg-12-b-backend-production.up.railway.app/api/users/signup',
+                'https://sdg-12-b-backend-production.up.railway.app/api/users/login',
                 userData
             );
             console.log('Sign In Success:', response.data);
@@ -34,14 +34,14 @@ const SignIn = () => {
         <form onSubmit={handleSignIn} className="space-y-4 font-medium">
             <div>
                 <label className="label">
-                    <span className="text-base label-text">Email</span>
+                    <span className="text-base label-text">Username</span>
                 </label>
                 <input
                     type="text"
                     name="username" // API menggunakan field "username" untuk email, sesuaikan nama field jika berbeda dengan API
                     value={userData.username}
                     onChange={handleInputChange}
-                    placeholder="Email Address"
+                    placeholder="Enter Username"
                     className="w-full input input-bordered"
                 />
             </div>
