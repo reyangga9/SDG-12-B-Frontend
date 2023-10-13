@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import logo from '~/assets/FoodGuardian-logo.png';
 import { navLinks } from './constants';
-import { LuSearch } from 'react-icons/lu';
+import { LuSearch, LuMenu } from 'react-icons/lu';
 
 const Header = () => {
     const location = useLocation();
@@ -13,13 +13,13 @@ const Header = () => {
                         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                         <div className="drawer-content">
                             {/* Page content here */}
-                            <label htmlFor="my-drawer" className="btn btn-ghost btn-circle drawer-button text-2xl">
-                                ☰
+                            <label htmlFor="my-drawer" className="btn btn-ghost btn-circle drawer-button text-2xl mt-1">
+                                <LuMenu />
                             </label>
                         </div>
                         <div className="drawer-side">
                             <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content font-semibold">
                                 {/* Sidebar content here */}
                                 {navLinks.map((item, index) => (
                                     <li key={index}>
