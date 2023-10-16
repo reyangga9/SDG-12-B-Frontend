@@ -5,16 +5,6 @@ import hero2 from '~/assets/hero2.png';
 const RecommendationPage = () => {
     return (
         <>
-            <div className="hero h-96" style={{ backgroundImage: `url(${hero})` }}>
-                <div className="hero-overlay bg-opacity-60"></div>
-                <div className="hero-content text-center text-neutral-content">
-                    <div className="max-w-md">
-                        <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-                        <p className="mb-5">Welcome! Join us in our mission to discover easy ways to rescue food, cut costs, and protect our planet.</p>
-                        <button className="btn btn-primary">Take Action and Save Food</button>
-                    </div>
-                </div>
-            </div>
             <div className='container mx-auto p-10'>
                 <div className='text-center font-semibold text-4xl p-3'>
                     <span>Looking For Inspo ? Start Here</span>

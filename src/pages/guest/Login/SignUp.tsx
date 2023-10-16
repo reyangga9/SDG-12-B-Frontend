@@ -1,7 +1,13 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 
 const SignUp = () => {
+    const [showPassword, setShowPassword] = useState(false);
+    function togglePasswordVisibility() {
+        setShowPassword(!showPassword);
+    }
+
     const [userData, setUserData] = useState({
         username: '',
         email: '',
@@ -63,14 +69,26 @@ const SignUp = () => {
                 <label className="label">
                     <span className="text-base label-text">Password</span>
                 </label>
-                <input
-                    type="password"
-                    name="password"
-                    value={userData.password}
-                    onChange={handleInputChange}
-                    placeholder="Enter Password"
-                    className="w-full input input-bordered"
-                />
+                <div className='relative mt-2'>
+                    <input
+                        type={showPassword ? 'text' : 'password'}
+                        name="password"
+                        value={userData.password}
+                        onChange={handleInputChange}
+                        placeholder="Enter Password"
+                        className="w-full input input-bordered"
+                    />
+                    <button
+                        type="button"
+                        id="showPassword"
+                        name="showPassword"
+                        aria-label="showPassword"
+                        className="absolute inset-y-0 right-0 flex items-center p-3 text-black"
+                        onClick={togglePasswordVisibility}
+                    >
+                        {showPassword ? <Eye className="w-6 h-6" /> : <EyeOff className="w-6 h-6" />}
+                    </button>
+                </div>
             </div>
             <div>
                 <button type="submit" className="btn btn-primary btn-block">

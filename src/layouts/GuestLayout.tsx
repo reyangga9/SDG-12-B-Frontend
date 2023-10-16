@@ -10,11 +10,17 @@ const GuestLayout = () => {
 
     return (
         <>
-            <Header />
+            <header>
+                <Header />
+            </header>
+
             <main>
                 <Outlet />
             </main>
-            {shouldShowFooter && <Footer />}
+
+            <footer>
+                {shouldShowFooter && <Footer />}
+            </footer>
         </>
     );
 };
