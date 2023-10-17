@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import GuestLayout from './layouts/GuestLayout'
-import HomePage from './pages/guest/Home'
-import RecommendationPage from './pages/guest/Recommendation'
-import MitraPage from './pages/guest/Mitra'
-import AboutUsPage from './pages/guest/AboutUs'
-import LoginPage from './pages/guest/Login'
+import HomePage from './pages/guest/HomePage'
+import RecommendationPage from './pages/guest/RecommendationPage'
+import MitraPage from './pages/guest/MitraPage'
+import AboutUsPage from './pages/guest/AboutUsPage'
+import LoginPage from './pages/guest/LoginPage'
 
 const router = createBrowserRouter([
   {

@@ -46,7 +46,7 @@ const HomePage = () => {
                 <div className="hero-content text-center text-neutral-content">
                     <div className="max-w-md">
                         <h1 className="mb-5 text-5xl font-bold">Are you ready to order with the best deals?</h1>
-                        <button className="btn btn-primary rounded-lg">PROCEED TO ORDER</button>
+                        <button className="btn btn-primary">PROCEED TO ORDER</button>
                     </div>
                 </div>
             </div>

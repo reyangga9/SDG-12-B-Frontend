@@ -1,6 +1,4 @@
 import { cardData, cardData2 } from './constants';
-import hero from '~/assets/hero.png';
-import hero2 from '~/assets/hero2.png';
 
 const RecommendationPage = () => {
     return (
@@ -30,14 +28,6 @@ const RecommendationPage = () => {
                             <img src={card2.image} className="object-cover" alt={`Card ${index}`} />
                         </figure>
                     ))}
-                </div>
-            </div>
-            <div className="hero h-96" style={{ backgroundImage: `url(${hero2})` }}>
-                <div className="hero-content text-center text-neutral-content">
-                    <div className="max-w-md">
-                        <h1 className="mb-5 text-5xl font-bold">Are you ready to order with the best deals?</h1>
-                        <button className="btn btn-primary rounded-lg">PROCEED TO ORDER</button>
-                    </div>
                 </div>
             </div>
         </>
