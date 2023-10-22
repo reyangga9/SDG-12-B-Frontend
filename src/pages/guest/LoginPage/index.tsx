@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '~/assets/FoodGuardian-logo.png';
+import pattern from '~/assets/foodpattern.jpg';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import { Link } from 'react-router-dom';
-import pattern from '~/assets/foodpattern.jpg';
-
 
 const LoginPage = () => {
     const [showForm, setShowForm] = useState(false);
@@ -16,17 +15,11 @@ const LoginPage = () => {
 
     const openModal = () => {
         setOpenModal(true);
-        // const modalElement = document.getElementById('my_modal_5') as HTMLDialogElement | null;
-
-        // if (modalElement) {
-        //     modalElement.showModal();
-        // } else {
-        //     console.error("Modal element not found!");
-        // }
     };
 
-    console.log('tes', isOpenModal);
-
+    const closeModal = () => {
+        setOpenModal(false);
+    };
 
     useEffect(() => {
         // Add the 'overflow-hidden' class to the body element when the component mounts
@@ -51,23 +44,6 @@ const LoginPage = () => {
                                 <button className="btn btn-square btn-sm" onClick={openModal}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
-                                {isOpenModal &&
-                                    <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                                        <div className="modal-box">
-                                            <h3 className="font-bold text-2xl">Sure you wanna leave?</h3>
-                                            <p className="py-4">Just a heads-up: if you do, you’ll have to repeat the login process from the start.</p>
-                                            <div className="modal-action">
-                                                <Link to="/">
-                                                    <button className="btn btn-primary btn-block">Yes, Leave</button>
-                                                </Link>
-                                                <form method="dialog">
-                                                    {/* if there is a button in form, it will close the modal */}
-                                                    <button className="btn">No, Stay</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </dialog>
-                                }
                             </div>
                         </div>
                         <div className="card-body">
@@ -81,6 +57,24 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
+            {isOpenModal &&
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black opacity-50" />
+                    <dialog className="modal modal-bottom sm:modal-middle" open={isOpenModal} onClose={closeModal}>
+                        <div className="modal-box">
+                            <h3 className="font-bold text-2xl">Sure you wanna leave?</h3>
+                            <p className="py-4">Just a heads-up: if you do, you’ll have to repeat the login process from the start.</p>
+                            <div className="modal-action">
+                                <Link to="/">
+                                    <button className="btn btn-primary btn-block" onClick={closeModal}>Yes, Leave</button>
+                                </Link>
+                                {/* No, Stay button will close the modal */}
+                                <button className="btn" onClick={closeModal}>No, Stay</button>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
+            }
         </>
     );
 };
