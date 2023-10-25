@@ -1,8 +1,18 @@
 import { cardData, cardData2 } from './constants';
+import hero2 from '~/assets/hero2.png';
+
 
 const RecommendationPage = () => {
     return (
         <>
+            <div className="hero h-96" style={{ backgroundImage: `url(${hero2})` }}>
+                <div className="hero-content text-black">
+                    <div className="max-w-md">
+                        <h1 className="mb-5 text-5xl font-bold">FoodGuardian</h1>
+                        <h1 className="mb-5 text-2xl font-semibold">Eksplor  kumpulan rekomendasi yang kami buat untuk berbagai kebutuhanmu</h1>
+                    </div>
+                </div>
+            </div>
             <div className='container mx-auto p-10'>
                 <div className='text-center font-semibold text-4xl p-3'>
                     <span>Looking For Inspo ? Start Here</span>

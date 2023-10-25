@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { cardData, cardData2 } from './constants';
-import hero from '~/assets/hero.png';
+// import { Link } from 'react-router-dom';
+import { cardData } from './constants';
+// import hero from '~/assets/hero.png';
 import hero2 from '~/assets/hero2.png';
 
 export const BestSellerPage = () => {
