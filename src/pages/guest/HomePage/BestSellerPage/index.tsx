@@ -16,7 +16,7 @@ export const BestSellerPage = () => {
             </div>
             <div className='container mx-auto p-10'>
                 <div className='text-center font-semibold text-4xl p-3'>
-                    <span>Best SellerS</span>
+                    <span>Best Seller</span>
                 </div>
                 <div className='flex flex-wrap justify-center items-center gap-5 mt-10'>
                     {cardData.map((card, index) => (
