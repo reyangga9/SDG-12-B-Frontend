@@ -10,11 +10,11 @@ import wo3 from '~/assets/live-tracing.png';
 import wo4 from '~/assets/quick-delivery.png';
 
 export const cardData: Card[] = [
-    { image: inspo1, title: 'Our Menu!' },
-    { image: inspo2, title: 'Our Shop!' },
-    { image: inspo3, title: 'Best Seller' },
-    { image: inspo4, title: 'Most Loved' },
-    { image: inspo5, title: '24 Hours' },
+    { image: inspo1, title: 'Our Menu!', link: '/restaurants/our_menu' },
+    { image: inspo2, title: 'Our Shop!', link: '/restaurants/our_shop' },
+    { image: inspo3, title: 'Best Seller', link: '/restaurants/best_seller' },
+    { image: inspo4, title: 'Most Loved', link: '/restaurants/most_loved' },
+    { image: inspo5, title: '24 Hours', link: '/restaurants/24_hours' },
 ];
 export const cardData2: Card2[] = [
     { image: wo1 },

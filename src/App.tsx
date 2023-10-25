@@ -3,9 +3,9 @@ import './index.css'
 import GuestLayout from './layouts/GuestLayout'
 import HomePage from './pages/guest/HomePage'
 import RecommendationPage from './pages/guest/RecommendationPage'
-import MitraPage from './pages/guest/MitraPage'
 import AboutUsPage from './pages/guest/AboutUsPage'
 import LoginPage from './pages/guest/LoginPage'
+import { BestSellerPage } from './pages/guest/HomePage/BestSellerPage'
 
 const router = createBrowserRouter([
   {
@@ -16,12 +16,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/recommendation",
-        element: <RecommendationPage />,
+        path: "/restaurants/best_seller",
+        element: <BestSellerPage />,
       },
       {
-        path: "/mitra",
-        element: <MitraPage />,
+        path: "/recommendation",
+        element: <RecommendationPage />,
       },
       {
         path: "/about-us",
