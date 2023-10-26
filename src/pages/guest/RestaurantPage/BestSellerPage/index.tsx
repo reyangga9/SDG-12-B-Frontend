@@ -5,6 +5,7 @@ import hero2 from '~/assets/hero2.png';
 interface Restaurant {
     _id: string;
     nama: string;
+    category: string;
     alamat: string;
     kota: string;
     gambarRestaurant: string;
@@ -37,21 +38,22 @@ export const BestSellerPage = () => {
                     </div>
                 </div>
             </div>
-            <div className='container mx-auto p-10'>
-                <div className='text-center font-semibold text-4xl p-3'>
-                    <span>Best Seller</span>
+            <div className='container mx-auto px-32 py-10'>
+                <div className='font-semibold text-4xl'>
+                    <span>Best Sellers</span>
                 </div>
-                <div className='flex flex-wrap justify-center items-center gap-5 mt-10'>
+                <div className='flex flex-wrap gap-5 mt-10'>
                     {Array.isArray(restaurants) && restaurants.length > 0 ? (
                         restaurants.map((restaurant, index) => (
                             <div key={index}>
-                                <div className="card w-72 h-90 bg-base-100 border hover:shadow-xl mb-8 transition-transform transform hover:scale-105 duration-300 ease-in-out">
+                                <div className="card w-72 h-96 bg-base-100 border hover:shadow-xl mb-8 transition-transform transform hover:scale-105 duration-300 ease-in-out">
                                     <figure className="px-2 pt-2">
-                                        <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full bg-gray-100 rounded-xl" />
+                                        <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
                                     </figure>
-                                    <div className="card-body items-center text-center">
+                                    <div className="card-body px-3 py-3">
                                         <h2 className="card-title">{restaurant.nama}</h2>
-                                        <p className="text-sm">{restaurant.alamat}, {restaurant.kota}</p>
+                                        <p className="text-sm">{restaurant.category}</p>
+                                        {/* <p className="text-sm">{restaurant.alamat}, {restaurant.kota}</p> */}
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +61,8 @@ export const BestSellerPage = () => {
                     ) : (
                         <p>No restaurants available</p>
                     )}
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     );
 };

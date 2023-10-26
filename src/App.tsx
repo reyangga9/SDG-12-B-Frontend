@@ -2,10 +2,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import GuestLayout from './layouts/GuestLayout'
 import HomePage from './pages/guest/HomePage'
-import RecommendationPage from './pages/guest/RecommendationPage'
+import RecommendationsPage from './pages/guest/RecommendationsPage'
 import AboutUsPage from './pages/guest/AboutUsPage'
 import LoginPage from './pages/guest/LoginPage'
-import { BestSellerPage } from './pages/guest/HomePage/BestSellerPage'
+import { BestSellerPage } from './pages/guest/RestaurantPage/BestSellerPage'
+import { DetailPage } from './pages/guest/RestaurantPage/DetailPage'
+import { MostLovedPage } from './pages/guest/RestaurantPage/MostLovedPage'
 
 const router = createBrowserRouter([
   {
@@ -16,12 +18,8 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/restaurants/best_seller",
-        element: <BestSellerPage />,
-      },
-      {
-        path: "/recommendation",
-        element: <RecommendationPage />,
+        path: "/recommendations",
+        element: <RecommendationsPage />,
       },
       {
         path: "/about-us",
@@ -30,6 +28,18 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/restaurants/best_seller",
+        element: <BestSellerPage />,
+      },
+      {
+        path: "/restaurants/most_loved",
+        element: <MostLovedPage />,
+      },
+      {
+        path: "/restaurant/:id",
+        element: <DetailPage />,
       },
     ],
   },

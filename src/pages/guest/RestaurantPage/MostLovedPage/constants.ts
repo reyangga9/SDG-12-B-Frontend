@@ -12,7 +12,7 @@ import wo4 from '~/assets/quick-delivery.png';
 export const cardData: Card[] = [
     { image: inspo1, title: 'Our Menu!', link: '/restaurants/our_menu' },
     { image: inspo2, title: 'Our Shop!', link: '/restaurants/our_shop' },
-    { image: inspo3, title: 'Best Sellers', link: '/restaurants/best_seller' },
+    { image: inspo3, title: 'Best Seller', link: '/restaurants/best_seller' },
     { image: inspo4, title: 'Most Loved', link: '/restaurants/most_loved' },
     { image: inspo5, title: '24 Hours', link: '/restaurants/24_hours' },
 ];

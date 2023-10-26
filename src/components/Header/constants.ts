@@ -2,6 +2,6 @@ import { NavLink } from "./types";
 
 export const navLinks: NavLink[] = [
     { text: 'Home', url: '/' },
-    { text: 'Recommendation', url: '/recommendation' },
+    { text: 'Recommendations', url: '/recommendations' },
     { text: 'About Us', url: '/about-us' },
 ];
