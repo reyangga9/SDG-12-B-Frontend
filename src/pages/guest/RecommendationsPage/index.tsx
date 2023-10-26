@@ -1,4 +1,3 @@
-import { cardData, cardData2 } from './constants';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import hero2 from '~/assets/hero2.png';
