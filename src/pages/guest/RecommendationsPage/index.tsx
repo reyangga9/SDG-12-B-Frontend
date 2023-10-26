@@ -60,7 +60,7 @@ const RecommendationsPage = () => {
                         {Array.isArray(bestSeller) && bestSeller.length > 0 ? (
                             bestSeller.map((restaurant, index) => (
                                 <div key={index}>
-                                    <div className="card w-72 h-96 bg-base-100 border hover:shadow-xl mb-8 transition-transform transform hover:scale-105 duration-300 ease-in-out">
+                                    <div className="card w-72 h-96 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
                                             <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
                                         </figure>
@@ -96,7 +96,7 @@ const RecommendationsPage = () => {
                         {Array.isArray(mostLoved) && mostLoved.length > 0 ? (
                             mostLoved.map((restaurant, index) => (
                                 <div key={index}>
-                                    <div className="card w-72 h-96 bg-base-100 border hover:shadow-xl mb-8 transition-transform transform hover:scale-105 duration-300 ease-in-out">
+                                    <div className="card w-72 h-96 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
                                             <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
                                         </figure>

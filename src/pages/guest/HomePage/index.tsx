@@ -22,7 +22,7 @@ const HomePage = () => {
                 </div>
                 <div className='flex flex-wrap justify-center items-center gap-5 mt-10'>
                     {cardData.map((card, index) => (
-                        <Link key={index} to={card.link} className="card  w-56 h-56 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-transform transform hover:scale-[1.02] duration-300 ease-in-out">
+                        <Link key={index} to={card.link} className="card  w-56 h-56 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transform hover:scale-[1.02] transition-all duration-300 ease-in-out">
 
                             <figure className="px-10 pt-10">
                                 <img src={card.image} alt={card.title} className="w-20" />
@@ -36,7 +36,7 @@ const HomePage = () => {
                 <div className='text-center font-semibold text-4xl p-3'>
                     <span>Why Order From FoodGuardian?</span>
                 </div>
-                <div className="justify-center items-center border flex gap-10 p-10 w-full bg-base-100 rounded-xl shadow-green-500 drop-shadow-2xl mb-8">
+                <div className="justify-center items-center border flex gap-10 p-10 w-full bg-base-100 rounded-xl transition-all duration-500 hover:drop-shadow-2xl mb-8">
                     {cardData2.map((card2, index) => (
                         <figure key={index} className={`w-60 h-25 ${index !== 3 ? 'border-r-2' : ''} px-10`}>
                             <img src={card2.image} className="object-cover" alt={`Card ${index}`} />

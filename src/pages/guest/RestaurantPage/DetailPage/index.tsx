@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import hero2 from '~/assets/hero2.png';
 
 interface Restaurant {
     _id: string;
@@ -18,7 +17,7 @@ export const DetailPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/restaurant/mostSells');
+                const response = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/food/restaurantFood/{restaurantId}');
                 setRestaurants(response.data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -31,9 +30,6 @@ export const DetailPage = () => {
     return (
         <>
             <div className='container mx-auto p-10'>
-                <div className='text-center font-semibold text-4xl p-3'>
-                    <span>Best Seller</span>
-                </div>
                 <div className='flex flex-wrap justify-center items-center gap-5 mt-10'>
                     {Array.isArray(restaurants) && restaurants.length > 0 ? (
                         restaurants.map((restaurant, index) => (
