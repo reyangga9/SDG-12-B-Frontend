@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import hero2 from '~/assets/hero2.png';
+import { useNavigate } from 'react-router-dom';
 
 interface Restaurant {
     _id: string;
@@ -14,6 +15,7 @@ interface Restaurant {
 
 export const BestSellerPage = () => {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,7 +47,9 @@ export const BestSellerPage = () => {
                 <div className='flex flex-wrap gap-5 mt-10'>
                     {Array.isArray(restaurants) && restaurants.length > 0 ? (
                         restaurants.map((restaurant, index) => (
-                            <div key={index}>
+                            <div key={index} onClick={() => {
+                                navigate(`/restaurant/${restaurant._id}`);
+                            }}>
                                 <div className="card w-72 h-96 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                     <figure className="px-2 pt-2">
                                         <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
