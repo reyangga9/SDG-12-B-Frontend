@@ -5,8 +5,16 @@ export interface Restaurant {
     alamat: string;
     kota: string;
     gambarRestaurant: string;
+    rating: Rating[];
     // Definisikan properti lainnya sesuai dengan respons API
 }
+export interface Rating {
+    userId: string;
+    rating: number;
+    comment?: string;
+    _id: string;
+}
+
 export interface Food {
     _id: string;
     makanan: string;

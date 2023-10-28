@@ -4,12 +4,12 @@ import hero2 from '~/assets/hero2.png';
 import bestseller from '~/assets/best-seller.png';
 import mostloved from '~/assets/most-loved.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, StarIcon } from 'lucide-react';
+import { StarIcon } from 'lucide-react';
 
 interface Restaurant {
     _id: string;
     nama: string;
-    category: string;
+    category: string[];
     alamat: string;
     kota: string;
     avgRating: string;
@@ -31,7 +31,7 @@ const RecommendationsPage = () => {
                 const BestSellerResponse = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/restaurant/mostSells');
                 setBestSeller(BestSellerResponse.data.data);
                 const MostLovedResponse = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/restaurant/mostLoved');
-                setMostLoved(MostLovedResponse.data);
+                setMostLoved(MostLovedResponse.data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -66,10 +66,10 @@ const RecommendationsPage = () => {
                                 <div key={index} onClick={() => {
                                     navigate(`/restaurant/${restaurant._id}`);
                                 }}>
-                                    <div className="card w-72 h-96 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
+                                    <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
-                                            <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
-                                            <div className="absolute bottom-36 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
+                                            <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 border object-cover bg-gray-100 rounded-xl" />
+                                            <div className="absolute transform translate-y-24 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
                                                 <div className="flex items-center gap-2">
                                                     <StarIcon size={20} fill='yellow' className='text-yellow-500' />
                                                     <span className="text-md font-semibold">{restaurant.avgRating}</span>
@@ -78,8 +78,7 @@ const RecommendationsPage = () => {
                                         </figure>
                                         <div className="card-body px-3 py-3">
                                             <h2 className="card-title">{restaurant.nama}</h2>
-                                            <p className="text-sm">{restaurant.category}</p>
-                                            {/* <p className="text-sm">{restaurant.alamat}, {restaurant.kota}</p> */}
+                                            {restaurant.category && <p className="text-sm">{restaurant.category.join(', ')}</p>}
                                         </div>
                                     </div>
                                 </div>
@@ -110,10 +109,10 @@ const RecommendationsPage = () => {
                                 <div key={index} onClick={() => {
                                     navigate(`/restaurant/${restaurant._id}`);
                                 }}>
-                                    <div className="card w-72 h-96 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
+                                    <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
-                                            <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
-                                            <div className="absolute bottom-36 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
+                                            <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 border object-cover bg-gray-100 rounded-xl" />
+                                            <div className="absolute transform translate-y-24 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
                                                 <div className="flex items-center gap-2">
                                                     <StarIcon size={20} fill='yellow' className='text-yellow-500' />
                                                     <span className="text-md font-semibold">{restaurant.avgRating}</span>
@@ -122,7 +121,7 @@ const RecommendationsPage = () => {
                                         </figure>
                                         <div className="card-body px-3 py-3">
                                             <h2 className="card-title">{restaurant.nama}</h2>
-                                            <p className="text-sm">{restaurant.category}</p>
+                                            {restaurant.category && <p className="text-sm">{restaurant.category.join(', ')}</p>}
                                             {/* <p className="text-sm">{restaurant.alamat}, {restaurant.kota}</p> */}
                                         </div>
                                     </div>
