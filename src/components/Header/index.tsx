@@ -8,7 +8,7 @@ const Header = () => {
     return (
         <div className='relative mt-14'>
             <div className='bg-white w-full border-b-2 fixed top-0 left-0 z-50'>
-                <div className="navbar p-1 container mx-auto">
+                <div className="navbar p-1 container mx-auto px-10">
                     <div className="flex-1">
                         <div className='md:hidden'>
                             <input id="my-drawer" type="checkbox" className="drawer-toggle" />

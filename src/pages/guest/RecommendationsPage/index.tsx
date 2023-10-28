@@ -3,7 +3,8 @@ import axios from 'axios';
 import hero2 from '~/assets/hero2.png';
 import bestseller from '~/assets/best-seller.png';
 import mostloved from '~/assets/most-loved.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Star, StarIcon } from 'lucide-react';
 
 interface Restaurant {
     _id: string;
@@ -11,6 +12,7 @@ interface Restaurant {
     category: string;
     alamat: string;
     kota: string;
+    avgRating: string;
     gambarRestaurant: string;
     // Definisikan properti lainnya sesuai dengan respons API
 }
@@ -19,6 +21,9 @@ const RecommendationsPage = () => {
 
     const [bestSeller, setBestSeller] = useState<Restaurant[]>([]);
     const [mostLoved, setMostLoved] = useState<Restaurant[]>([]);
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -58,10 +63,18 @@ const RecommendationsPage = () => {
                     <div className='flex flex-wrap gap-5 mt-10'>
                         {Array.isArray(bestSeller) && bestSeller.length > 0 ? (
                             bestSeller.map((restaurant, index) => (
-                                <div key={index}>
+                                <div key={index} onClick={() => {
+                                    navigate(`/restaurant/${restaurant._id}`);
+                                }}>
                                     <div className="card w-72 h-96 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
                                             <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
+                                            <div className="absolute bottom-36 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
+                                                <div className="flex items-center gap-2">
+                                                    <StarIcon size={20} fill='yellow' className='text-yellow-500' />
+                                                    <span className="text-md font-semibold">{restaurant.avgRating}</span>
+                                                </div>
+                                            </div>
                                         </figure>
                                         <div className="card-body px-3 py-3">
                                             <h2 className="card-title">{restaurant.nama}</h2>
@@ -80,7 +93,7 @@ const RecommendationsPage = () => {
                             <button className="btn btn-secondary normal-case">Show All Restos</button>
                         </Link>
                     </div>
-                </section>
+                </section >
 
                 <section id='most-loved' className='mt-10'>
                     <div className='flex items-center gap-5'>
@@ -94,10 +107,18 @@ const RecommendationsPage = () => {
                     <div className='flex flex-wrap gap-5 mt-10'>
                         {Array.isArray(mostLoved) && mostLoved.length > 0 ? (
                             mostLoved.map((restaurant, index) => (
-                                <div key={index}>
+                                <div key={index} onClick={() => {
+                                    navigate(`/restaurant/${restaurant._id}`);
+                                }}>
                                     <div className="card w-72 h-96 bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
                                             <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 object-cover bg-gray-100 rounded-xl" />
+                                            <div className="absolute bottom-36 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
+                                                <div className="flex items-center gap-2">
+                                                    <StarIcon size={20} fill='yellow' className='text-yellow-500' />
+                                                    <span className="text-md font-semibold">{restaurant.avgRating}</span>
+                                                </div>
+                                            </div>
                                         </figure>
                                         <div className="card-body px-3 py-3">
                                             <h2 className="card-title">{restaurant.nama}</h2>
@@ -117,7 +138,7 @@ const RecommendationsPage = () => {
                         </Link>
                     </div>
                 </section>
-            </div>
+            </div >
         </>
     );
 };
