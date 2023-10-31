@@ -87,7 +87,7 @@ const RecommendationsPage = () => {
                             <p>No bestSeller available</p>
                         )}
                     </div >
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center mt-10'>
                         <Link to={'/restaurants/best_seller'}>
                             <button className="btn btn-secondary normal-case">Show All Restos</button>
                         </Link>
@@ -131,7 +131,7 @@ const RecommendationsPage = () => {
                             <p>No mostLoved available</p>
                         )}
                     </div >
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center mt-10'>
                         <Link to={'/restaurants/most_loved'}>
                             <button className="btn btn-secondary normal-case">Show All Restos</button>
                         </Link>
