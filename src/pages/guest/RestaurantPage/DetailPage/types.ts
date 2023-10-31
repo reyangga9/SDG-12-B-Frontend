@@ -1,7 +1,7 @@
 export interface Restaurant {
     _id: string;
     nama: string;
-    category: string;
+    category: string[];
     alamat: string;
     kota: string;
     gambarRestaurant: string;
@@ -9,10 +9,14 @@ export interface Restaurant {
     // Definisikan properti lainnya sesuai dengan respons API
 }
 export interface Rating {
-    userId: string;
+    name: string;
     rating: number;
     comment?: string;
     _id: string;
+}
+
+export interface ColorCache {
+    [key: string]: string;
 }
 
 export interface Food {
