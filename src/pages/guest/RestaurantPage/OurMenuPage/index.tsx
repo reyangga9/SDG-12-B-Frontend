@@ -1,23 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import hero2 from "~/assets/hero2.png";
-
-interface Food {
-  _id: string;
-  makanan: string;
-  tanggalExpired: string;
-  gambarMakanan: string;
-  harga: number;
-  restoId: string;
-  stokMakanan: number;
-  discountPercentage: number;
-  category: string[];
-}
+import { Food } from "./types";
+import { SkeletonLoading } from "~/components/SkeletonLoading";
 
 export const OurMenuPage = () => {
   const [foods, setFoods] = useState<Food[]>([]);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +16,10 @@ export const OurMenuPage = () => {
           "https://sdg-12-b-backend-production.up.railway.app/api/food"
         );
         setFoods(response.data.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching food data:", error);
+        setLoading(false);
       }
     };
 
@@ -53,8 +45,14 @@ export const OurMenuPage = () => {
         <div className="font-semibold text-4xl">
           <span>Our Menu</span>
         </div>
-        <div className="flex flex-wrap gap-5 mt-10">
-          {Array.isArray(foods) && foods.length > 0 ? (
+        <div className='flex flex-wrap gap-5 mt-10'>
+          {loading ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <div key={index}>
+                <SkeletonLoading />
+              </div>
+            ))
+          ) : (
             foods.map((food, index) => (
               <div key={index}>
                 <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all duration-300">
@@ -62,7 +60,12 @@ export const OurMenuPage = () => {
                     <img
                       src={food.gambarMakanan}
                       alt={food.makanan}
-                      className="w-full h-60 object-cover bg-gray-100 rounded-xl"
+                      className={`w-full h-60 border object-cover bg-gray-100 rounded-xl transition-all duration-500 ease-in-out filter ${!imageLoaded ? 'blur-lg' : ''}`}
+                      onLoad={() => {
+                        setTimeout(() => {
+                          setImageLoaded(true);
+                        }, 100); // You can adjust the delay (in milliseconds) as needed
+                      }}
                     />
                   </figure>
                   <div className="card-body px-3 py-3">
@@ -75,8 +78,6 @@ export const OurMenuPage = () => {
                 </div>
               </div>
             ))
-          ) : (
-            <p>No menu items available</p>
           )}
         </div>
       </div>

@@ -1,37 +1,42 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { StarIcon } from 'lucide-react';
+import { Restaurant } from './types';
 import hero2 from '~/assets/hero2.png';
 import bestseller from '~/assets/best-seller.png';
 import mostloved from '~/assets/most-loved.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { StarIcon } from 'lucide-react';
 
-interface Restaurant {
-    _id: string;
-    nama: string;
-    category: string[];
-    alamat: string;
-    kota: string;
-    avgRating: string;
-    gambarRestaurant: string;
-    // Definisikan properti lainnya sesuai dengan respons API
-}
+const SkeletonLoading = () => {
+    return (
+        <div className="card w-72 h-full bg-base-100 border mb-8 animate-pulse transition-all duration-300 ease-in-out">
+            <figure className="px-2 pt-2">
+                <div className="w-full h-60 border object-cover bg-gray-100 rounded-xl"></div>
+            </figure>
+            <div className="card-body px-3 py-3">
+                <div className="w-full h-6 bg-gray-300 rounded-lg mb-2"></div>
+                <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
+            </div>
+        </div>
+    );
+};
 
 const RecommendationsPage = () => {
-
     const [bestSeller, setBestSeller] = useState<Restaurant[]>([]);
     const [mostLoved, setMostLoved] = useState<Restaurant[]>([]);
-
+    const [loading, setLoading] = useState(true);
+    const [imageLoaded, setImageLoaded] = useState(false);
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const BestSellerResponse = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/restaurant/mostSells');
-                setBestSeller(BestSellerResponse.data.data);
                 const MostLovedResponse = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/restaurant/mostLoved');
+
+                setBestSeller(BestSellerResponse.data.data);
                 setMostLoved(MostLovedResponse.data.data);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -61,14 +66,27 @@ const RecommendationsPage = () => {
                         </div>
                     </div>
                     <div className='flex flex-wrap gap-5 mt-10'>
-                        {Array.isArray(bestSeller) && bestSeller.length > 0 ? (
+                        {loading ? (
+                            Array.from({ length: 6 }).map((_, index) => (
+                                <div key={index}>
+                                    <SkeletonLoading />
+                                </div>
+                            ))
+                        ) : (
                             bestSeller.map((restaurant, index) => (
-                                <div key={index} onClick={() => {
-                                    navigate(`/restaurant/${restaurant._id}`);
-                                }}>
+                                <div key={index} onClick={() => navigate(`/restaurant/${restaurant._id}`)}>
                                     <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
-                                            <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 border object-cover bg-gray-100 rounded-xl" />
+                                            <img
+                                                src={restaurant.gambarRestaurant}
+                                                alt={restaurant.nama}
+                                                className={`w-full h-60 border object-cover bg-gray-100 rounded-xl transition-all duration-500 ease-in-out filter ${!imageLoaded ? 'blur-lg' : ''}`}
+                                                onLoad={() => {
+                                                    setTimeout(() => {
+                                                        setImageLoaded(true);
+                                                    }, 100); // You can adjust the delay (in milliseconds) as needed
+                                                }}
+                                            />
                                             <div className="absolute transform translate-y-24 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
                                                 <div className="flex items-center gap-2">
                                                     <StarIcon size={20} fill='yellow' className='text-yellow-500' />
@@ -83,8 +101,6 @@ const RecommendationsPage = () => {
                                     </div>
                                 </div>
                             ))
-                        ) : (
-                            <p>No bestSeller available</p>
                         )}
                     </div >
                     <div className='flex justify-center mt-10'>
@@ -104,14 +120,27 @@ const RecommendationsPage = () => {
                         </div>
                     </div>
                     <div className='flex flex-wrap gap-5 mt-10'>
-                        {Array.isArray(mostLoved) && mostLoved.length > 0 ? (
+                        {loading ? (
+                            Array.from({ length: 6 }).map((_, index) => (
+                                <div key={index}>
+                                    <SkeletonLoading />
+                                </div>
+                            ))
+                        ) : (
                             mostLoved.map((restaurant, index) => (
-                                <div key={index} onClick={() => {
-                                    navigate(`/restaurant/${restaurant._id}`);
-                                }}>
+                                <div key={index} onClick={() => navigate(`/restaurant/${restaurant._id}`)}>
                                     <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
-                                            <img src={restaurant.gambarRestaurant} alt={restaurant.nama} className="w-full h-60 border object-cover bg-gray-100 rounded-xl" />
+                                            <img
+                                                src={restaurant.gambarRestaurant}
+                                                alt={restaurant.nama}
+                                                className={`w-full h-60 border object-cover bg-gray-100 rounded-xl transition-all duration-500 ease-in-out filter ${!imageLoaded ? 'blur-lg' : ''}`}
+                                                onLoad={() => {
+                                                    setTimeout(() => {
+                                                        setImageLoaded(true);
+                                                    }, 100); // You can adjust the delay (in milliseconds) as needed
+                                                }}
+                                            />
                                             <div className="absolute transform translate-y-24 right-3 bg-white px-2 py-1 rounded-full shadow-lg">
                                                 <div className="flex items-center gap-2">
                                                     <StarIcon size={20} fill='yellow' className='text-yellow-500' />
@@ -122,13 +151,10 @@ const RecommendationsPage = () => {
                                         <div className="card-body px-3 py-3">
                                             <h2 className="card-title">{restaurant.nama}</h2>
                                             {restaurant.category && <p className="text-sm">{restaurant.category.join(', ')}</p>}
-                                            {/* <p className="text-sm">{restaurant.alamat}, {restaurant.kota}</p> */}
                                         </div>
                                     </div>
                                 </div>
                             ))
-                        ) : (
-                            <p>No mostLoved available</p>
                         )}
                     </div >
                     <div className='flex justify-center mt-10'>
