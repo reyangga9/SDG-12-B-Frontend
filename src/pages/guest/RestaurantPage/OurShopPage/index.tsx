@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import hero2 from "~/assets/hero2.png";
 import { useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
 import { Restaurant } from "./types";
-import { SkeletonLoading } from "~/components/SkeletonLoading";
+import { SkeletonCardResto } from "~/components/SkeletonCardResto";
+import { axiosInstance } from "~/lib/axiosInstance";
 
 export const OurShopPage = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -12,20 +12,18 @@ export const OurShopPage = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://sdg-12-b-backend-production.up.railway.app/api/restaurant/random/"
-        );
-        setRestaurants(response.data.restaurant);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get("/restaurant/random/");
+      setRestaurants(response.data.restaurant);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -50,7 +48,7 @@ export const OurShopPage = () => {
           {loading ? (
             Array.from({ length: 6 }).map((_, index) => (
               <div key={index}>
-                <SkeletonLoading />
+                <SkeletonCardResto />
               </div>
             ))
           ) : (

@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import hero2 from "~/assets/hero2.png";
 import { Food } from "./types";
-import { SkeletonLoading } from "~/components/SkeletonLoading";
+import { SkeletonCardFood } from "~/components/SkeletonCardFood";
+import { axiosInstance } from "~/lib/axiosInstance";
 
 export const OurMenuPage = () => {
   const [foods, setFoods] = useState<Food[]>([]);
   const [loading, setLoading] = useState(true);
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get("/food");
+      setFoods(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching food data:", error);
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://sdg-12-b-backend-production.up.railway.app/api/food"
-        );
-        setFoods(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching food data:", error);
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -47,9 +44,9 @@ export const OurMenuPage = () => {
         </div>
         <div className='flex flex-wrap gap-5 mt-10'>
           {loading ? (
-            Array.from({ length: 6 }).map((_, index) => (
+            Array.from({ length: 8 }).map((_, index) => (
               <div key={index}>
-                <SkeletonLoading />
+                <SkeletonCardFood />
               </div>
             ))
           ) : (

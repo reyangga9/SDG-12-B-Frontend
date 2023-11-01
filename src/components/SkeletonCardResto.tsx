@@ -1,4 +1,4 @@
-export const SkeletonLoading = () => {
+export const SkeletonCardResto = () => {
     return (
         <div className="card w-72 h-full bg-base-100 border mb-8 animate-pulse transition-all duration-300 ease-in-out">
             <figure className="px-2 pt-2">

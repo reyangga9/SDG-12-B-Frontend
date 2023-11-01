@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { StarIcon } from 'lucide-react';
 import { Restaurant } from './types';
 import hero2 from '~/assets/hero2.png';
 import bestseller from '~/assets/best-seller.png';
 import mostloved from '~/assets/most-loved.png';
+import { axiosInstance } from '~/lib/axiosInstance';
 
 const SkeletonLoading = () => {
     return (
@@ -28,20 +28,20 @@ const RecommendationsPage = () => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const navigate = useNavigate();
 
+    const fetchData = async () => {
+        try {
+            const BestSellerResponse = await axiosInstance.get('/restaurant/mostSells');
+            const MostLovedResponse = await axiosInstance.get('/restaurant/mostLoved');
+
+            setBestSeller(BestSellerResponse.data.data);
+            setMostLoved(MostLovedResponse.data.data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const BestSellerResponse = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/restaurant/mostSells');
-                const MostLovedResponse = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/restaurant/mostLoved');
-
-                setBestSeller(BestSellerResponse.data.data);
-                setMostLoved(MostLovedResponse.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         fetchData();
     }, []);
 

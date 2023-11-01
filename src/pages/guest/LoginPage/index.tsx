@@ -49,7 +49,7 @@ const LoginPage = () => {
                         <div className="card-body">
                             {showForm ? <SignUp /> : <SignIn />}
                             <div>
-                                <span className="text-xs text-gray-600 hover:underline hover:text-blue-600" onClick={toggleForm}>
+                                <span className="text-xs text-gray-600  hover:text-green-600 cursor-pointer" onClick={toggleForm}>
                                     {showForm ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
                                 </span>
                             </div>
