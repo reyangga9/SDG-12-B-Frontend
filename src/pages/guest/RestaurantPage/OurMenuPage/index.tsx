@@ -67,7 +67,14 @@ export const OurMenuPage = () => {
                   </figure>
                   <div className="card-body px-3 py-3">
                     <h2 className="card-title">{food.makanan}</h2>
-                    <p className="text-base font-medium">{food.harga}</p>
+                    <p className="text-base font-medium">
+                      {new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                      }).format(food.harga)}
+                    </p>
                     <button className="btn btn-primary normal-case text-base">
                       Add
                     </button>

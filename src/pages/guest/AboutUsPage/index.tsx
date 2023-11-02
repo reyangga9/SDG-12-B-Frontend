@@ -1,12 +1,20 @@
 import image1 from '~/assets/about-us1.png';
 import image2 from '~/assets/about-us2.png';
+import { useState } from 'react';
+
 
 const AboutUsPage = () => {
+    const [imageLoaded, setImageLoaded] = useState(false);
+
     return (
         <>
             <div className='container mx-auto p-10'>
                 <div className='flex gap-40 justify-center items-center'>
-                    <figure>
+                    <figure className={`transition-all duration-500 ease-in-out filter ${!imageLoaded ? ' blur-lg' : ''}`} onLoad={() => {
+                        setTimeout(() => {
+                            setImageLoaded(true);
+                        }, 100); // You can adjust the delay (in milliseconds) as needed
+                    }}>
                         <img src={image1} className='rounded-lg' />
                     </figure>
                     <div className='w-1/3 flex flex-col gap-5'>
@@ -21,7 +29,7 @@ const AboutUsPage = () => {
                         </span>
                     </div>
                 </div>
-            </div>
+            </div >
             <div className='bg-neutral-100 p-10 flex gap-40 justify-center items-center'>
                 <div className='w-1/3 flex flex-col gap-5'>
                     <span className='text-5xl font-medium'>
@@ -31,7 +39,11 @@ const AboutUsPage = () => {
                         At Place we believe that dining is not merely about the food but about the holistic experience. Our team, celebrated for their warmth and commitment, endeavors to make each visit a memorable occasion, all while championing our mission to combat food waste.
                     </span>
                 </div>
-                <figure>
+                <figure className={`transition-all duration-500 ease-in-out filter ${!imageLoaded ? ' blur-lg' : ''}`} onLoad={() => {
+                    setTimeout(() => {
+                        setImageLoaded(true);
+                    }, 100); // You can adjust the delay (in milliseconds) as needed
+                }}>
                     <img src={image2} className='rounded-lg' />
                 </figure>
             </div>

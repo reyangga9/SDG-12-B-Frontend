@@ -1,32 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { StarIcon } from 'lucide-react';
 import { Restaurant } from './types';
 import hero2 from '~/assets/hero2.png';
 import bestseller from '~/assets/best-seller.png';
 import mostloved from '~/assets/most-loved.png';
 import { axiosInstance } from '~/lib/axiosInstance';
-
-const SkeletonLoading = () => {
-    return (
-        <div className="card w-72 h-full bg-base-100 border mb-8 animate-pulse transition-all duration-300 ease-in-out">
-            <figure className="px-2 pt-2">
-                <div className="w-full h-60 border object-cover bg-gray-100 rounded-xl"></div>
-            </figure>
-            <div className="card-body px-3 py-3">
-                <div className="w-full h-6 bg-gray-300 rounded-lg mb-2"></div>
-                <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
-            </div>
-        </div>
-    );
-};
+import { SkeletonCardResto } from '~/components/SkeletonCardResto';
 
 const RecommendationsPage = () => {
     const [bestSeller, setBestSeller] = useState<Restaurant[]>([]);
     const [mostLoved, setMostLoved] = useState<Restaurant[]>([]);
     const [loading, setLoading] = useState(true);
     const [imageLoaded, setImageLoaded] = useState(false);
-    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -69,12 +55,12 @@ const RecommendationsPage = () => {
                         {loading ? (
                             Array.from({ length: 6 }).map((_, index) => (
                                 <div key={index}>
-                                    <SkeletonLoading />
+                                    <SkeletonCardResto />
                                 </div>
                             ))
                         ) : (
                             bestSeller.map((restaurant, index) => (
-                                <div key={index} onClick={() => navigate(`/restaurant/${restaurant._id}`)}>
+                                <Link key={index} to={(`/restaurant/${restaurant._id}`)}>
                                     <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
                                             <img
@@ -99,7 +85,7 @@ const RecommendationsPage = () => {
                                             {restaurant.category && <p className="text-sm">{restaurant.category.join(', ')}</p>}
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))
                         )}
                     </div >
@@ -123,12 +109,12 @@ const RecommendationsPage = () => {
                         {loading ? (
                             Array.from({ length: 6 }).map((_, index) => (
                                 <div key={index}>
-                                    <SkeletonLoading />
+                                    <SkeletonCardResto />
                                 </div>
                             ))
                         ) : (
                             mostLoved.map((restaurant, index) => (
-                                <div key={index} onClick={() => navigate(`/restaurant/${restaurant._id}`)}>
+                                <Link key={index} to={(`/restaurant/${restaurant._id}`)}>
                                     <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all transform hover:scale-[1.02] duration-300 ease-in-out">
                                         <figure className="px-2 pt-2">
                                             <img
@@ -153,7 +139,7 @@ const RecommendationsPage = () => {
                                             {restaurant.category && <p className="text-sm">{restaurant.category.join(', ')}</p>}
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))
                         )}
                     </div >
