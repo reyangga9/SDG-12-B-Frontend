@@ -1,9 +1,15 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
-
+import useAuthStore from '~/store/authStore'; // Adjust the import path accordingly
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
+    const authStore = useAuthStore(); // Access the auth store
+
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
     function togglePasswordVisibility() {
         setShowPassword(!showPassword);
@@ -29,6 +35,18 @@ const SignIn = () => {
                 userData
             );
             console.log('Sign In Success:', response.data);
+
+            // Store the token in a cookie
+            Cookies.set('authToken', response.data.token, { expires: 1 }); // Cookie expires in 1 day
+
+            console.log('Token:', response.data.token); // Log the token to the console
+
+
+            // Call the login action from the auth store
+            authStore.login(userData, response.data.token);
+
+            navigate('/');
+
             // Handle successful sign in, such as setting user authentication state or redirecting the user.
         } catch (error) {
             console.error('Sign In Failed:', error);
