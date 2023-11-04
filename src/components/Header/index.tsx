@@ -6,6 +6,7 @@ import { LuSearch, LuMenu } from 'react-icons/lu';
 import useAuthStore from '~/store/authStore'; // Adjust the import path accordingly
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { LogOut } from 'lucide-react';
 
 
 const Header = () => {
@@ -15,28 +16,56 @@ const Header = () => {
     const [isOpenModal, setOpenModal] = useState(false);
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const authToken = Cookies.get('authToken');
-                if (authToken) {
-                    const response = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/users/login', {
-                        headers: {
-                            Authorization: `Bearer ${authToken}`,
-                        },
-                    });
+    const fetchUserDataFromServer = async () => {
+        try {
+            const response = await axios.get('https://sdg-12-b-backend-production.up.railway.app/api/users/refreshToken', {
+                headers: {
+                    authorization: Cookies.get('authToken'),
+                },
+            });
 
-                    const userData = response.data; // Mendapatkan data pengguna dari respons server
-                    login(userData, authToken);
+            const userData = response.data.data; // Adjust this based on the actual response structure
+            console.log('tes', userData)
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            return userData;
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            // Handle errors here, if necessary
+        }
+    };
+
+    useEffect(() => {
+        const authToken = Cookies.get('authToken');
+        const userDataFromLocalStorage = localStorage.getItem('currentUser');
+
+        const fetchData = async () => {
+            if (authToken && typeof authToken === 'string') {
+                if (!userDataFromLocalStorage) {
+                    try {
+                        const userData = await fetchUserDataFromServer();
+                        if (userData) {
+                            login(userData, authToken);
+                        } else {
+                            // Tangani jika data pengguna tidak dapat diambil dari server
+                        }
+                    } catch (error) {
+                        // Tangani kesalahan pengambilan data pengguna dari server
+                        console.error('Error fetching user data from server:', error);
+                    }
+                } else {
+                    // Gunakan data pengguna dari localStorage jika ada
+                    const parsedUserData = JSON.parse(userDataFromLocalStorage);
+                    login(parsedUserData, authToken);
                 }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-                // Handle error, misalnya dengan logout atau menampilkan pesan kesalahan kepada pengguna
+            } else {
+                // Tangani kasus ketika authToken tidak tersedia atau bukan string
+                console.error('Invalid or missing authToken.');
             }
         };
 
         fetchData();
     }, []);
+
 
     const handleLogout = () => {
         // Call the logout action from the auth store
@@ -44,6 +73,8 @@ const Header = () => {
 
         // Clear the token from cookies
         Cookies.remove('authToken');
+
+        localStorage.removeItem('currentUser');
 
         // Refresh the page to apply changes
         window.location.reload();
@@ -109,18 +140,13 @@ const Header = () => {
                             {isAuthenticated ? (
                                 // If user is authenticated, render Logout button
                                 <div className="dropdown dropdown-end px-[14.5px] font-medium">
-                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar normal-case">
                                         <div className='w-10 rounded-full bg-primary !inline-flex items-center justify-center '>
                                             {isAuthenticated && user && <span className='text-white text-lg font-bold text-center'>{user.username[0]}</span>}
                                         </div>
                                     </label>
-                                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <a className="justify-between">
-                                                Profile
-                                            </a>
-                                        </li>
-                                        <li onClick={openModal}><a>Logout</a></li>
+                                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-xl w-32">
+                                        <li onClick={openModal}><a><LogOut size={20} />Logout</a></li>
                                     </ul>
                                 </div>
                             ) : (

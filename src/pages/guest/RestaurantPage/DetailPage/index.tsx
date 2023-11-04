@@ -13,6 +13,7 @@ export const DetailPage = () => {
     const [activeTab, setActiveTab] = useState('Menu');
     const [loading, setLoading] = useState(true);
     const [imageLoaded, setImageLoaded] = useState(false);
+    const [foodCounts, setFoodCounts] = useState<{ [id: string]: number }>({});
     let { id } = useParams();
 
     const fetchData = async () => {
@@ -34,6 +35,39 @@ export const DetailPage = () => {
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
     };
+
+    const handleIncrement = async (id: string) => {
+        try {
+            const newCount = foodCounts[id] ? foodCounts[id] + 1 : 1;
+            const response = await axiosInstance.post('/cart/add', {
+                id: id,
+                quantity: newCount,
+            });
+            // Handle success response if needed
+            setFoodCounts({ ...foodCounts, [id]: newCount });
+        } catch (error) {
+            // Handle error
+            console.error('Error adding to cart:', error);
+        }
+    };
+
+    const handleDecrement = async (id: string) => {
+        if (foodCounts[id] && foodCounts[id] > 0) {
+            try {
+                const newCount = foodCounts[id] - 1;
+                const response = await axiosInstance.post('/cart/add', {
+                    id: id,
+                    quantity: newCount,
+                });
+                // Handle success response if needed
+                setFoodCounts({ ...foodCounts, [id]: newCount });
+            } catch (error) {
+                // Handle error
+                console.error('Error removing from cart:', error);
+            }
+        }
+    };
+
 
     return (
         <>
@@ -105,9 +139,30 @@ export const DetailPage = () => {
                                                     maximumFractionDigits: 0
                                                 }).format(food.harga)}
                                             </p>
-                                            <button className="btn btn-primary normal-case text-base">
-                                                Add
-                                            </button>
+                                            {foodCounts[food._id] === undefined || foodCounts[food._id] === 0 ? (
+                                                <button
+                                                    className="btn btn-primary normal-case text-base"
+                                                    onClick={() => handleIncrement(food._id)}
+                                                >
+                                                    Add
+                                                </button>
+                                            ) : (
+                                                <div className="flex items-center mt-2">
+                                                    <button
+                                                        className="btn btn-secondary"
+                                                        onClick={() => handleDecrement(food._id)}
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span className="mx-2">{foodCounts[food._id]}</span>
+                                                    <button
+                                                        className="btn btn-secondary"
+                                                        onClick={() => handleIncrement(food._id)}
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

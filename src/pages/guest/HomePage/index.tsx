@@ -25,7 +25,7 @@ const HomePage = () => {
                 </div>
                 <div className='flex flex-wrap justify-center items-center gap-5 mt-10'>
                     {cardData.map((card, index) => (
-                        <Link key={index} to={card.link} className="card  w-56 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transform hover:scale-[1.02] transition-all duration-300 ease-in-out">
+                        <Link key={index} to={card.link} className="card !rounded-xl w-56 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transform hover:scale-[1.02] transition-all duration-300 ease-in-out">
 
                             <figure className={`px-10 pt-10   transition-all duration-500 ease-in-out filter ${!imageLoaded ? 'blur-lg' : ''}`}
                                 onLoad={() => {

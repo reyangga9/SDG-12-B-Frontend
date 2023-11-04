@@ -1,4 +1,5 @@
 import create, { SetState } from 'zustand';
+import Cookies from 'js-cookie';
 
 type UserData = {
     username: string;
@@ -8,7 +9,6 @@ type UserData = {
 type AuthState = {
     isAuthenticated: boolean;
     user: UserData | null;
-    token: string | null;
 };
 
 type AuthActions = {
@@ -17,24 +17,25 @@ type AuthActions = {
 };
 
 const useAuthStore = create<AuthState & AuthActions>((set: SetState<AuthState & AuthActions>) => ({
-    isAuthenticated: false,
+    isAuthenticated: Cookies.get('authToken') ? true : false,
     user: null,
-    token: null,
     login: (userData, authToken) => {
+        // Set isAuthenticated to true and save token to cookies
         set((state) => ({
             ...state,
             isAuthenticated: true,
             user: userData,
-            token: authToken,
         }));
+        Cookies.set('authToken', authToken, { expires: 1 }); // Set cookie expiration as needed
     },
     logout: () => {
+        // Set isAuthenticated to false and remove token from cookies
         set((state) => ({
             ...state,
             isAuthenticated: false,
             user: null,
-            token: null,
         }));
+        Cookies.remove('authToken');
     },
 }));
 
