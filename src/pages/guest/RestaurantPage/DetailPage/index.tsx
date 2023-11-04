@@ -60,8 +60,9 @@ export const DetailPage = () => {
         },
         { headers } // Pass the headers to the request
       );
-
       console.log("Response:", response);
+
+      setFoodCounts({ ...foodCounts, [id]: newCount });
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
