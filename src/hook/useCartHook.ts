@@ -44,7 +44,7 @@ const useCartHook = () => {
         };
 
         fetchData(); // Call the fetchData function when the component mounts
-    }, []);
+    }, [foodCounts]);
 
     const handleIncrement = async (id: string) => {
         try {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import { SkeletonCardResto } from '~/components/SkeletonCardResto';
@@ -8,7 +8,7 @@ const RestaurantSection: React.FC<RestaurantSectionProps> = ({ restaurants, load
     const [imageLoaded, setImageLoaded] = useState(false);
 
     return (
-        <div className='flex flex-wrap gap-5 mt-10'>
+        <section className='flex flex-wrap gap-5 mt-10'>
             {loading ? (
                 Array.from({ length: 6 }).map((_, index) => (
                     <div key={index}>
@@ -45,7 +45,7 @@ const RestaurantSection: React.FC<RestaurantSectionProps> = ({ restaurants, load
                     </Link>
                 ))
             )}
-        </div>
+        </section>
     );
 };
 

@@ -19,6 +19,17 @@ type Rating = {
     _id: string;
 }
 
+export type Food = {
+    _id: string;
+    makanan: string;
+    tanggalExpired: string;
+    gambarMakanan: string;
+    harga: number;
+    restoId: string;
+    stokMakanan: number;
+    discountPercentage: number;
+}
+
 type UseRestaurantHook = {
     restaurants: Restaurant[] | null;
     loading: boolean;

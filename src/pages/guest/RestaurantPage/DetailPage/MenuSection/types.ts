@@ -1,4 +1,4 @@
-import { Food } from "../types";
+import { Food } from "~/hook/useRestaurantHook";
 
 export interface MenuSectionProps {
     foods: Food[] | null;

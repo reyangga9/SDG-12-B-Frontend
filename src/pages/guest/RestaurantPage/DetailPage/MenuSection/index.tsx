@@ -1,6 +1,6 @@
-import React from "react";
 import { SkeletonCardFood } from "~/components/SkeletonCardFood";
 import { MenuSectionProps } from "./types";
+import { Minus, Plus } from "lucide-react";
 
 const MenuSection: React.FC<MenuSectionProps> = ({
     foods,
@@ -46,19 +46,22 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                 </p>
                                 {foodCounts[food._id] > 0 ? (
                                     <div className="flex justify-center items-center mt-2">
-                                        <button
-                                            className="btn btn-primary btn-circle"
-                                            onClick={() => handleDecrement(food._id)}
-                                        >
-                                            -
-                                        </button>
-                                        <span className="mx-2">{foodCounts[food._id]}</span>
-                                        <button
-                                            className="btn btn-primary btn-circle"
-                                            onClick={() => handleIncrement(food._id)}
-                                        >
-                                            +
-                                        </button>
+                                        <div className="grid grid-cols-3 items-center gap-1">
+                                            <button
+                                                className="btn btn-primary btn-circle"
+                                                onClick={() => handleDecrement(food._id)}
+                                            >
+                                                <Minus size={20} strokeWidth={3} />
+
+                                            </button>
+                                            <span className="text-center text-lg">{foodCounts[food._id]}</span>
+                                            <button
+                                                className="btn btn-primary btn-circle"
+                                                onClick={() => handleIncrement(food._id)}
+                                            >
+                                                <Plus size={20} strokeWidth={3} />
+                                            </button>
+                                        </div>
                                     </div>
                                 ) : (
                                     <button

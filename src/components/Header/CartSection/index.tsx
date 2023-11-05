@@ -1,4 +1,35 @@
+import { useParams } from 'react-router-dom';
+import useCartHook from '~/hook/useCartHook';
+import useRestaurantHook from '~/hook/useRestaurantHook';
+import { useCallback } from 'react';
+import { Minus, Plus } from 'lucide-react';
+
 const CartSection = () => {
+    const { handleIncrement, handleDecrement, foodCounts } = useCartHook();
+    let { id } = useParams();
+    const { restaurant, foods } = useRestaurantHook('single', id);
+
+    const calculateTotalFoodCount = useCallback(() => {
+        return Object.keys(foodCounts).reduce(
+            (total, foodId) => total + foodCounts[foodId],
+            0
+        );
+    }, [foodCounts]);
+
+    const calculateTotalPrice = useCallback(() => {
+        return foods?.reduce((totalPrice, food) => {
+            const foodCount = foodCounts[food._id] || 0;
+            return totalPrice + foodCount * food.harga;
+        }, 0);
+    }, [foodCounts, foods]);
+
+    const formattedTotalPrice = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(calculateTotalPrice());
+
     return (
         <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -18,24 +49,50 @@ const CartSection = () => {
                         />
                     </svg>
                     <span className="badge badge-primary badge-sm indicator-item">
-                        8
+                        {calculateTotalFoodCount()}
                     </span>
                 </div>
             </label>
-            <div
-                tabIndex={0}
-                className="mt-3 z-[1] card card-compact dropdown-content w-96 bg-white shadow"
-            >
+            <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-[26rem] p-2 bg-white shadow">
                 <div className="card-body">
-                    <span className="font-bold text-lg">Your Order</span>
-                    <div className="card-actions">
+                    <span className="font-semibold text-lg">Your Order</span>
+                    <h2 className="text-sm text-neutral-600 -mt-2 mb-5">{restaurant?.nama}</h2>
+                    {foods?.map((food, index) => {
+                        const foodCount = foodCounts[food._id] || 0;
+                        return foodCount > 0 ? (
+                            <div key={index} className="grid grid-cols-3 mt-2">
+                                <span className='font-semibold'>{food.makanan}</span>
+                                <div className="grid grid-cols-3 items-center gap-3 ml-10">
+                                    <button onClick={() => handleDecrement(food._id)} className=" btn btn-xs btn-circle btn-primary">
+                                        <Minus size={15} strokeWidth={3} />
+                                    </button>
+                                    <span className="text-center">{foodCount}</span>
+                                    <button onClick={() => handleIncrement(food._id)} className="btn btn-xs btn-circle btn-primary">
+                                        <Plus size={15} strokeWidth={3} />
+                                    </button>
+                                </div>
+
+                                <p className="text-sm font-medium ml-auto">
+                                    {new Intl.NumberFormat("id-ID", {
+                                        style: "currency",
+                                        currency: "IDR",
+                                        minimumFractionDigits: 0,
+                                        maximumFractionDigits: 0,
+                                    }).format(food.harga)}
+                                </p>
+                            </div>
+                        ) : null;
+                    })}
+                    <div className="card-actions mt-32">
+                        <span className="font-bold text-base">Total Price:</span>
+                        <span className="font-bold text-base ml-auto">{formattedTotalPrice}</span>
                         <button className="btn btn-primary btn-block">
                             Continue to checkout
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
