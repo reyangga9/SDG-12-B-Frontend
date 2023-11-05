@@ -56,7 +56,7 @@ export const DetailPage = () => {
         "https://sdg-12-b-backend-production.up.railway.app/api/cart/add",
         {
           foodId: id,
-          quantity: newCount,
+          quantity: +1,
         },
         { headers } // Pass the headers to the request
       );
@@ -70,8 +70,9 @@ export const DetailPage = () => {
   const handleDecrement = async (id: string) => {
     try {
       const auth_token = Cookies.get("auth_token");
+      console.log(foodCounts[id]);
       const newCount = foodCounts[id] ? foodCounts[id] - 1 : 1;
-
+      console.log(newCount);
       const headers = {
         Authorization: `Bearer ${auth_token}`,
         "Content-Type": "application/json", // Set the content type if needed
@@ -81,12 +82,13 @@ export const DetailPage = () => {
         "https://sdg-12-b-backend-production.up.railway.app/api/cart/add",
         {
           foodId: id,
-          quantity: newCount,
+          quantity: -1,
         },
         { headers } // Pass the headers to the request
       );
 
       console.log("Response:", response);
+      setFoodCounts({ ...foodCounts, [id]: newCount });
     } catch (error) {
       console.error("Error adding to cart:", error);
     }

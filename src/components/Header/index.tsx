@@ -16,12 +16,15 @@ const Header = () => {
 
   const fetchUserDataFromServer = async () => {
     try {
+      const auth_token = Cookies.get("auth_token");
+      const headers = {
+        Authorization: `Bearer ${auth_token}`,
+        "Content-Type": "application/json", // Set the content type if needed
+      };
       const response = await axios.get(
         "https://sdg-12-b-backend-production.up.railway.app/api/users/refreshToken",
         {
-          headers: {
-            authorization: Cookies.get("auth_token"),
-          },
+          headers,
         }
       );
 
