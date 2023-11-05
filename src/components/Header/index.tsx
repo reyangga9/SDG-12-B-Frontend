@@ -7,6 +7,8 @@ import useAuthStore from "~/store/authStore"; // Adjust the import path accordin
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { LogOut } from "lucide-react";
+import LogoutSection from "./LogoutSection";
+import CartSection from "./CartSection";
 
 const Header = () => {
   const location = useLocation();
@@ -200,76 +202,12 @@ const Header = () => {
                 </ul>
               )}
             </div>
-            {isOpenModal && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center">
-                <div className="absolute inset-0 bg-black opacity-50" />
-                <dialog
-                  className="modal modal-bottom sm:modal-middle"
-                  open={isOpenModal}
-                  onClose={closeModal}
-                >
-                  <div className="modal-box">
-                    <h3 className="font-bold text-2xl">
-                      Sure you wanna log out?
-                    </h3>
-                    <p className="py-4">
-                      Just a heads-up: if you do, you’ll have to repeat the
-                      login process from the start.
-                    </p>
-                    <div className="modal-action">
-                      <div>
-                        <button
-                          className="btn btn-primary btn-block"
-                          onClick={handleLogout}
-                        >
-                          Log out
-                        </button>
-                      </div>
-                      {/* No, Stay button will close the modal */}
-                      <button className="btn" onClick={closeModal}>
-                        No
-                      </button>
-                    </div>
-                  </div>
-                </dialog>
-              </div>
-            )}
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost btn-circle">
-                <div className="indicator">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                  <span className="badge badge-primary badge-sm indicator-item">
-                    8
-                  </span>
-                </div>
-              </label>
-              <div
-                tabIndex={0}
-                className="mt-3 z-[1] card card-compact dropdown-content w-96 bg-white shadow"
-              >
-                <div className="card-body">
-                  <span className="font-bold text-lg">Your Order</span>
-                  <div className="card-actions">
-                    <button className="btn btn-primary btn-block">
-                      Continue to checkout
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <LogoutSection
+              isOpenModal={isOpenModal}
+              handleLogout={handleLogout}
+              closeModal={closeModal}
+            />
+            <CartSection />
           </div>
         </div>
       </div>
