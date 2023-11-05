@@ -258,14 +258,13 @@ const Header = () => {
               </label>
               <div
                 tabIndex={0}
-                className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-white shadow"
+                className="mt-3 z-[1] card card-compact dropdown-content w-96 bg-white shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">8 Items</span>
-                  <span className="text-info">Subtotal: $999</span>
+                  <span className="font-bold text-lg">Your Order</span>
                   <div className="card-actions">
                     <button className="btn btn-primary btn-block">
-                      View cart
+                      Continue to checkout
                     </button>
                   </div>
                 </div>
