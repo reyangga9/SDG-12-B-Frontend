@@ -1,13 +1,14 @@
-import { useParams } from 'react-router-dom';
 import useCartHook from '~/hook/useCartHook';
 import useRestaurantHook from '~/hook/useRestaurantHook';
 import { useCallback } from 'react';
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus, ShoppingCart } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 
 const CartSection = () => {
     const { handleIncrement, handleDecrement, foodCounts } = useCartHook();
-    let { id } = useParams();
+    const { id } = useParams();
     const { restaurant, foods } = useRestaurantHook('single', id);
+
 
     const calculateTotalFoodCount = useCallback(() => {
         return Object.keys(foodCounts).reduce(
@@ -29,6 +30,8 @@ const CartSection = () => {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     }).format(calculateTotalPrice());
+
+    const isFoodSelected = calculateTotalFoodCount() > 0;
 
     return (
         <div className="dropdown dropdown-end">
@@ -56,7 +59,9 @@ const CartSection = () => {
             <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-[26rem] p-2 bg-white shadow">
                 <div className="card-body">
                     <span className="font-semibold text-lg">Your Order</span>
-                    <h2 className="text-sm text-neutral-600 -mt-2 mb-5">{restaurant?.nama}</h2>
+                    {isFoodSelected && restaurant && (
+                        <h2 className="text-sm text-neutral-600 -mt-2 mb-5">{restaurant.nama}</h2>
+                    )}
                     {foods?.map((food, index) => {
                         const foodCount = foodCounts[food._id] || 0;
                         return foodCount > 0 ? (
@@ -83,13 +88,21 @@ const CartSection = () => {
                             </div>
                         ) : null;
                     })}
-                    <div className="card-actions mt-32">
-                        <span className="font-bold text-base">Total Price:</span>
-                        <span className="font-bold text-base ml-auto">{formattedTotalPrice}</span>
-                        <button className="btn btn-primary btn-block">
-                            Continue to checkout
-                        </button>
-                    </div>
+                    {isFoodSelected ? (
+                        <div className="card-actions mt-32">
+                            <span className="font-bold text-base">Total Price:</span>
+                            <span className="font-bold text-base ml-auto mb-2">{formattedTotalPrice}</span>
+                            <button className="btn btn-primary btn-block">
+                                Continue to checkout
+                            </button>
+                        </div>
+                    ) : (
+                        <div className='flex flex-col justify-center items-center mt-32'>
+                            <ShoppingCart size={40} />
+                            <p className="text-lg text-center text-neutral-600">Your cart is empty. Let's discover our collections of popular dishes.</p>
+                        </div>
+                    )}
+
                 </div>
             </div>
         </div >

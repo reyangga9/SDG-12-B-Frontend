@@ -3,7 +3,7 @@ import { navLinks, socialLinks } from "./constants";
 
 const Footer = () => {
     return (
-        <div className="footer footer-center p-10 bg-[#34A853] text-white font-medium rounded">
+        <div className="footer footer-center p-10 bg-primary text-white font-medium">
             <nav className="grid sm:grid-flow-col gap-4">
                 {navLinks.map((item, index) => (
                     <div key={index} className="px-5 py-2">

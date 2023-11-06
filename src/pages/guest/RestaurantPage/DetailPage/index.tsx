@@ -9,7 +9,7 @@ import useCartHook from "~/hook/useCartHook";
 export const DetailPage = () => {
   const [activeTab, setActiveTab] = useState("Menu");
   const [imageLoaded, setImageLoaded] = useState(false);
-  let { id } = useParams();
+  const { id } = useParams();
   const { restaurant, foods, loading: restaurantLoading } = useRestaurantHook('single', id);
   const { foodCounts, handleIncrement, handleDecrement } = useCartHook();
 

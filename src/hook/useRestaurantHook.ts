@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { axiosInstance } from '~/lib/axiosInstance';
+import Cookies from 'js-cookie';
 
 export type Restaurant = {
     _id: string;
@@ -47,18 +48,24 @@ const useRestaurantHook = (type: RequestType, id?: string): UseRestaurantHook =>
 
     const fetchData = async () => {
         try {
+            const auth_token = Cookies.get("auth_token");
+            const headers = {
+                Authorization: `Bearer ${auth_token}`,
+                "Content-Type": "application/json",
+            };
+
             let endpoint = '';
             if (type === 'mostLoved') {
                 endpoint = '/restaurant/mostLoved/';
             } else if (type === 'bestSeller') {
                 endpoint = '/restaurant/mostSells/';
             } else if (type === 'random') {
-                endpoint = '/restaurant/random/';
+                endpoint = '/restaurant/';
             } else if (type === 'single' && id) {
                 endpoint = `/restaurant/restoandfood/${id}`;
             }
 
-            const response = await axiosInstance.get(endpoint);
+            const response = await axiosInstance.get(endpoint, { headers });
             if (type === 'single') {
                 setRestaurant(response.data.restaurant);
                 setFoods(response.data.food);
