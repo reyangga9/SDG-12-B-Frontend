@@ -1,32 +1,28 @@
 import { Link } from "react-router-dom";
-import { navLinks, socialLinks } from "./constants";
+import { navLinks } from "./constants";
+import logo from "~/assets/FoodGuardian-logo-white.png";
+
 
 const Footer = () => {
     return (
-        <div className="footer footer-center p-10 bg-primary text-white font-medium">
-            <nav className="grid sm:grid-flow-col gap-4">
-                {navLinks.map((item, index) => (
-                    <div key={index} className="px-5 py-2">
-                        <Link className="text-base hover:underline" to={item.url}>
-                            {item.text}
-                        </Link>
-                    </div>
-                ))}
-            </nav>
-            <nav>
-                <div className="grid grid-flow-col gap-4">
-                    {socialLinks.map((item, index) => (
-                        <a key={index} href={item.url} className=" hover:text-gray-500">
-                            <span className="sr-only">{item.text}</span>
-                            {item.icon}
-                        </a>
-                    ))}
+        <footer className="w-full bg-primary text-white pt-20 pb-5">
+            <div className="w-full container mx-auto p-4 md:py-8">
+                <div className="sm:flex sm:items-center sm:justify-between">
+                    <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center mb-4 sm:mb-0">
+                        <img src={logo} className="h-8 mr-3" alt="Logo" />
+                    </Link>
+                    <nav className="flex flex-wrap items-center justify-center text-md font-medium">
+                        {navLinks.map((item, index) => (
+                            <Link key={index} to={item.url} className="mr-4 hover:underline md:mr-6">
+                                {item.text}
+                            </Link>
+                        ))}
+                    </nav>
                 </div>
-            </nav>
-            <aside>
-                <p>© 2023 SGD-12-B Generasi Gigih 3.0. All rights reserved.</p>
-            </aside>
-        </div>
+                <hr className="my-6 border-white border lg:my-8" />
+                <span className="block font-medium text-sm  sm:text-center">© 2023 SGD-12-B Generasi Gigih 3.0. All rights reserved.</span>
+            </div>
+        </footer>
 
     );
 };

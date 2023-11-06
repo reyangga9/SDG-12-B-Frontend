@@ -91,7 +91,7 @@ const RecommendationsPage = () => {
                     </div >
                     <div className='flex justify-center mt-10'>
                         <Link to={'/restaurants/best_seller'}>
-                            <button className="btn btn-secondary normal-case">Show All Restos</button>
+                            <button className="btn btn-primary normal-case">Show All Restos</button>
                         </Link>
                     </div>
                 </section >
@@ -145,7 +145,7 @@ const RecommendationsPage = () => {
                     </div >
                     <div className='flex justify-center mt-10'>
                         <Link to={'/restaurants/most_loved'}>
-                            <button className="btn btn-secondary normal-case">Show All Restos</button>
+                            <button className="btn btn-primary normal-case">Show All Restos</button>
                         </Link>
                     </div>
                 </section>
