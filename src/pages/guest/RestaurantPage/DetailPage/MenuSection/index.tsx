@@ -1,6 +1,7 @@
 import { SkeletonCardFood } from "~/components/SkeletonCardFood";
 import { MenuSectionProps } from "./types";
 import { Minus, Plus } from "lucide-react";
+import useAuthHook from "~/hook/useAuthHook";
 
 const MenuSection: React.FC<MenuSectionProps> = ({
     foods,
@@ -10,6 +11,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
     imageLoaded,
     setImageLoaded,
 }) => {
+    const { isAuthenticated } = useAuthHook();
     return (
         <div className="flex flex-wrap gap-5 mt-20">
             {!foods || foods.length === 0
@@ -66,7 +68,14 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                 ) : (
                                     <button
                                         className="btn btn-primary normal-case text-base"
-                                        onClick={() => handleIncrement(food._id)}
+                                        onClick={() => {
+                                            if (isAuthenticated) {
+                                                handleIncrement(food._id);
+                                            } else {
+                                                alert("Authentication is required to add items to the cart.");
+                                                window.location.href = "/login"; // Navigate to the login page
+                                            }
+                                        }}
                                     >
                                         Add
                                     </button>
