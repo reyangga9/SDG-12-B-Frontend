@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Cookies from 'js-cookie';
+import { axiosInstance } from '~/lib/axiosInstance';
 
 const useCartHook = () => {
     const [foodCounts, setFoodCounts] = useState<{ [id: string]: number }>({});
@@ -14,8 +14,8 @@ const useCartHook = () => {
                 const headers = {
                     Authorization: `Bearer ${auth_token}`,
                 };
-                const response = await axios.get(
-                    'https://sdg-12-b-backend-production.up.railway.app/api/cart/user/allCart',
+                const response = await axiosInstance.get(
+                    '/cart/user/allCart',
                     { headers }
                 );
 
@@ -55,8 +55,8 @@ const useCartHook = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.post(
-                'https://sdg-12-b-backend-production.up.railway.app/api/cart/add',
+            const response = await axiosInstance.post(
+                '/cart/add',
                 {
                     foodId: id,
                     quantity: 1,
@@ -83,8 +83,8 @@ const useCartHook = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.post(
-                'https://sdg-12-b-backend-production.up.railway.app/api/cart/add',
+            const response = await axiosInstance.post(
+                '/cart/add',
                 {
                     foodId: id,
                     quantity: -1,

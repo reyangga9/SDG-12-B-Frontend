@@ -1,8 +1,8 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "~/store/authStore";
+import { axiosInstance } from "~/lib/axiosInstance";
 
 const useAuthHook = () => {
     const authStore = useAuthStore(); // Access the auth store
@@ -28,8 +28,8 @@ const useAuthHook = () => {
     const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post(
-                "https://sdg-12-b-backend-production.up.railway.app/api/users/login",
+            const response = await axiosInstance.post(
+                "/users/login",
                 userData
             );
             console.log("Sign In Success:", response.data);
@@ -53,8 +53,8 @@ const useAuthHook = () => {
     const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post(
-                'https://sdg-12-b-backend-production.up.railway.app/api/users/signup',
+            const response = await axiosInstance.post(
+                '/users/signup',
                 userData
             );
             console.log('Sign Up Success:', response.data);
@@ -76,8 +76,8 @@ const useAuthHook = () => {
                 Authorization: `Bearer ${auth_token}`,
                 "Content-Type": "application/json", // Set the content type if needed
             };
-            const response = await axios.get(
-                "https://sdg-12-b-backend-production.up.railway.app/api/users/refreshToken",
+            const response = await axiosInstance.get(
+                "/users/refreshToken",
                 {
                     headers,
                 }
