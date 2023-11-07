@@ -13,7 +13,7 @@ const Footer = () => {
                     </Link>
                     <nav className="flex flex-wrap items-center justify-center text-md font-medium">
                         {navLinks.map((item, index) => (
-                            <Link key={index} to={item.url} className="mr-4 hover:underline md:mr-6">
+                            <Link key={index} to={item.url} className="mr-4 hover:decoration-current underline decoration-transparent transition duration-300 md:mr-6">
                                 {item.text}
                             </Link>
                         ))}

@@ -1,91 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "~/assets/FoodGuardian-logo.png";
-import Cookies from "js-cookie";
 import { navLinks } from "./constants";
 import { LuSearch, LuMenu } from "react-icons/lu";
-import useAuthStore from "~/store/authStore"; // Adjust the import path accordingly
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { LogOut } from "lucide-react";
 import LogoutSection from "./LogoutSection";
 import CartSection from "./CartSection";
+import useAuthHook from "~/hook/useAuthHook";
 
 const Header = () => {
   const location = useLocation();
-  const { isAuthenticated, user, login, logout } = useAuthStore(); // Access isAuthenticated, user, and logout from the auth store
-  console.log("IsAuthenticated:", isAuthenticated);
   const [isOpenModal, setOpenModal] = useState(false);
-
-  const fetchUserDataFromServer = async () => {
-    try {
-      const auth_token = Cookies.get("auth_token");
-      const headers = {
-        Authorization: `Bearer ${auth_token}`,
-        "Content-Type": "application/json", // Set the content type if needed
-      };
-      const response = await axios.get(
-        "https://sdg-12-b-backend-production.up.railway.app/api/users/refreshToken",
-        {
-          headers,
-        }
-      );
-
-      const userData = response.data.data; // Adjust this based on the actual response structure
-      console.log("tes", userData);
-      localStorage.setItem("currentUser", JSON.stringify(userData));
-      return userData;
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      // Handle errors here, if necessary
-    }
-  };
-
-  useEffect(() => {
-    const auth_token = Cookies.get("auth_token");
-    const userDataFromLocalStorage = localStorage.getItem("currentUser");
-
-    const fetchData = async () => {
-      if (auth_token && typeof auth_token === "string") {
-        if (!userDataFromLocalStorage) {
-          try {
-            const userData = await fetchUserDataFromServer();
-            if (userData) {
-              login(userData, auth_token);
-            } else {
-              // Tangani jika data pengguna tidak dapat diambil dari server
-            }
-          } catch (error) {
-            // Tangani kesalahan pengambilan data pengguna dari server
-            console.error("Error fetching user data from server:", error);
-          }
-        } else {
-          // Gunakan data pengguna dari localStorage jika ada
-          const parsedUserData = JSON.parse(userDataFromLocalStorage);
-          login(parsedUserData, auth_token);
-        }
-      } else {
-        // Tangani kasus ketika auth_token tidak tersedia atau bukan string
-        console.error("Invalid or missing auth_token.");
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleLogout = () => {
-    // Call the logout action from the auth store
-    logout();
-
-    // Clear the token from cookies
-    Cookies.remove("auth_token");
-
-    localStorage.removeItem("currentUser");
-
-    // Refresh the page to apply changes
-    window.location.reload();
-
-    // Handle any other logout logic, such as redirecting the user
-  };
+  const { isAuthenticated, user, handleLogout, } = useAuthHook();
 
   const openModal = () => {
     setOpenModal(true);
