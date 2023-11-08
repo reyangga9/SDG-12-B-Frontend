@@ -43,6 +43,9 @@ const useCartStore = create<CartStore>((set) => ({
         set((state) => ({
           foodCounts: { ...state.foodCounts, [id]: newCount },
         }));
+
+        // Fetch the updated cart data
+        await useCartStore.getState().fetchCartData();
       } else {
         console.error("Error adding to cart:", response.data.message);
       }
@@ -74,6 +77,9 @@ const useCartStore = create<CartStore>((set) => ({
         set((state) => ({
           foodCounts: { ...state.foodCounts, [id]: newCount },
         }));
+
+        // Fetch the updated cart data
+        await useCartStore.getState().fetchCartData();
       } else {
         console.error("Error removing from cart:", response.data.message);
       }
@@ -103,7 +109,7 @@ const useCartStore = create<CartStore>((set) => ({
           newFoodCounts[food._id] = food.quantity; // Assuming food has an ID and quantity property
         });
 
-        set((state) => ({
+        set(() => ({
           restaurant: resto,
           foods: foodList,
           foodCounts: newFoodCounts,

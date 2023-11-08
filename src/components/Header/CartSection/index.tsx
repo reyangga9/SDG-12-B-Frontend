@@ -1,4 +1,3 @@
-import useCartHook from "~/hook/useCartHook";
 import { useCallback, useEffect } from "react";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import useCartStore from "~/store/cartStore";
