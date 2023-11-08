@@ -7,7 +7,7 @@ import { axiosInstance } from "~/lib/axiosInstance";
 const useAuthHook = () => {
     const authStore = useAuthStore(); // Access the auth store
     const { isAuthenticated, user, login, logout } = useAuthStore(); // Access isAuthenticated, user, and logout from the auth store
-    console.log("IsAuthenticated:", isAuthenticated);
+    // console.log("IsAuthenticated:", isAuthenticated);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
