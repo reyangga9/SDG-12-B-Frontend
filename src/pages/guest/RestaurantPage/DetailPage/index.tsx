@@ -4,14 +4,18 @@ import ReviewsSection from "./ReviewSection";
 import RestoProfileSection from "./RestoProfileSection";
 import MenuSection from "./MenuSection";
 import useRestaurantHook from "~/hook/useRestaurantHook";
-import useCartHook from "~/hook/useCartHook";
+import useCartStore from "~/store/cartStore";
 
 export const DetailPage = () => {
   const [activeTab, setActiveTab] = useState("Menu");
   const [imageLoaded, setImageLoaded] = useState(false);
   const { id } = useParams();
-  const { restaurant, foods, loading: restaurantLoading } = useRestaurantHook('single', id);
-  const { foodCounts, handleIncrement, handleDecrement } = useCartHook();
+  const {
+    restaurant,
+    foods,
+    loading: restaurantLoading,
+  } = useRestaurantHook("single", id);
+  const { foodCounts, handleIncrement, handleDecrement } = useCartStore();
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -20,7 +24,12 @@ export const DetailPage = () => {
   return (
     <>
       <div className="container mx-auto px-32 py-10">
-        <RestoProfileSection restaurant={restaurant} imageLoaded={imageLoaded} setImageLoaded={setImageLoaded} loading={restaurantLoading} />
+        <RestoProfileSection
+          restaurant={restaurant}
+          imageLoaded={imageLoaded}
+          setImageLoaded={setImageLoaded}
+          loading={restaurantLoading}
+        />
 
         <div className="tabs tabs-boxed p-2 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] bg-white font-semibold absolute left-1/2 transform -translate-x-1/2">
           <a
