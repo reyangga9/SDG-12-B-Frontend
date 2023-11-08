@@ -1,7 +1,6 @@
-import { Food } from "~/hook/useRestaurantHook";
 
 export interface MenuSectionProps {
-    foods: Food[] | null;
+    foods: any[] | null;
     foodCounts: { [id: string]: number };
     handleIncrement: (id: string) => void;
     handleDecrement: (id: string) => void;

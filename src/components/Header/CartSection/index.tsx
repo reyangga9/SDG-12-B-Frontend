@@ -9,18 +9,20 @@ const CartSection = () => {
     console.log('foods', foods)
 
 
+    // Calculate total food count using foodCounts state
     const calculateTotalFoodCount = useCallback(() => {
-        return foods?.reduce((total, food) => {
-            return total + food.quantity;
-        }, 0) || 0;
-    }, [foods]);
+        return Object.values(foodCounts).reduce((total, count) => total + count, 0);
+    }, [foodCounts]);
 
-
+    // Calculate total price using foodCounts state
     const calculateTotalPrice = useCallback(() => {
         return foods?.reduce((totalPrice, food) => {
-            return totalPrice + (food.harga * food.quantity);
+            const count = foodCounts[food._id] || 0;
+            return totalPrice + (food.harga * count);
         }, 0) || 0;
-    }, [foods]);
+    }, [foods, foodCounts]);
+
+    console.log('es', foodCounts)
 
 
     const formattedTotalPrice = new Intl.NumberFormat("id-ID", {
@@ -62,7 +64,7 @@ const CartSection = () => {
                         <h2 className="text-sm text-neutral-600 -mt-2 mb-5">{restaurant.nama}</h2>
                     )}
                     {foods?.map((foodItem, index) => {
-                        const foodCount = foodItem.quantity;
+                        const foodCount = foodCounts[foodItem._id] || 0;
                         return foodCount > 0 ? (
                             <div key={index} className="grid grid-cols-3 mt-2">
                                 <span className='font-semibold'>{foodItem.makanan}</span>
