@@ -12,9 +12,6 @@ const CartSection = () => {
     fetchCartData,
   } = useCartStore();
 
-  console.log("resto", restaurant);
-  console.log("foods", foods);
-
   // Calculate total food count using foodCounts state
   const calculateTotalFoodCount = useCallback(() => {
     return Object.values(foodCounts).reduce((total, count) => total + count, 0);

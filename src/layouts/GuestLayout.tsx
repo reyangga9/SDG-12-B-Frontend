@@ -1,34 +1,32 @@
-import { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const GuestLayout = () => {
-    const location = useLocation();
+  const location = useLocation();
 
-    // Tentukan apakah footer harus ditampilkan berdasarkan path saat ini
-    const shouldShowFooter = location.pathname !== '/login';
+  // Tentukan apakah footer harus ditampilkan berdasarkan path saat ini
+  const shouldShowFooter = location.pathname !== "/login";
 
-    useEffect(() => {
-        // Scroll to the top of the page when the route changes
-        window.scrollTo(0, 0);
-    }, [location.pathname]); // Trigger the effect when location.pathname changes
+  useEffect(() => {
+    // Scroll to the top of the page when the route changes
+    window.scrollTo(0, 0);
+  }, [location.pathname]); // Trigger the effect when location.pathname changes
 
-    return (
-        <>
-            <header>
-                <Header />
-            </header>
+  return (
+    <>
+      <header>
+        <Header />
+      </header>
 
-            <main>
-                <Outlet />
-            </main>
+      <main>
+        <Outlet />
+      </main>
 
-            <footer>
-                {shouldShowFooter && <Footer />}
-            </footer>
-        </>
-    );
+      <footer>{shouldShowFooter && <Footer />}</footer>
+    </>
+  );
 };
 
 export default GuestLayout;
