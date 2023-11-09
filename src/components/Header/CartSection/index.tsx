@@ -32,8 +32,6 @@ const CartSection = () => {
     );
   }, [foods, foodCounts]);
 
-  console.log("es", foodCounts);
-
   const formattedTotalPrice = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -84,14 +82,14 @@ const CartSection = () => {
                 <span className="font-semibold">{foodItem.makanan}</span>
                 <div className="grid grid-cols-3 items-center gap-3 ml-10">
                   <button
-                    onClick={() => handleDecrement(foodItem._id)}
+                    onClick={() => handleDecrement(foodItem._id, foodItem.restoId)}
                     className="btn btn-xs btn-circle btn-primary"
                   >
                     <Minus size={15} strokeWidth={3} />
                   </button>
                   <span className="text-center">{foodCount}</span>
                   <button
-                    onClick={() => handleIncrement(foodItem._id)}
+                    onClick={() => handleIncrement(foodItem._id, foodItem.restoId)}
                     className="btn btn-xs btn-circle btn-primary"
                   >
                     <Plus size={15} strokeWidth={3} />

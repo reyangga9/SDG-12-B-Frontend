@@ -51,7 +51,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                         <div className="grid grid-cols-3 items-center gap-1">
                                             <button
                                                 className="btn btn-primary btn-circle"
-                                                onClick={() => handleDecrement(food._id)}
+                                                onClick={() => handleDecrement(food._id, food.restoId)}
                                             >
                                                 <Minus size={20} strokeWidth={3} />
 
@@ -59,7 +59,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                             <span className="text-center text-lg">{foodCounts[food._id]}</span>
                                             <button
                                                 className="btn btn-primary btn-circle"
-                                                onClick={() => handleIncrement(food._id)}
+                                                onClick={() => handleIncrement(food._id, food.restoId)}
                                             >
                                                 <Plus size={20} strokeWidth={3} />
                                             </button>
@@ -70,7 +70,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                         className="btn btn-primary normal-case text-base"
                                         onClick={() => {
                                             if (isAuthenticated) {
-                                                handleIncrement(food._id);
+                                                handleIncrement(food._id, food.restoId);
                                             } else {
                                                 alert("Authentication is required to add items to the cart.");
                                                 window.location.href = "/login"; // Navigate to the login page
