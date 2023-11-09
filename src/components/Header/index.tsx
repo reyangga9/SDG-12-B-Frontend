@@ -21,6 +21,9 @@ const Header = () => {
     setOpenModal(false);
   };
 
+  // Determine if the current route is CheckoutPage
+  const isCheckoutPage = location.pathname === "/checkout"; // Change "/checkout" to the ac
+
   return (
     <div className="relative mt-14">
       <div className="bg-white w-full border-b-2 fixed top-0 left-0 z-50">
@@ -133,7 +136,7 @@ const Header = () => {
               handleLogout={handleLogout}
               closeModal={closeModal}
             />
-            <CartSection />
+            {!isCheckoutPage && <CartSection />} {/* Render CartSection only on CheckoutPage */}
           </div>
         </div>
       </div>

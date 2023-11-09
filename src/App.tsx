@@ -10,6 +10,8 @@ import { DetailPage } from "./pages/guest/RestaurantPage/DetailPage";
 import { MostLovedPage } from "./pages/guest/RestaurantPage/MostLovedPage";
 import { OurShopPage } from "./pages/guest/RestaurantPage/OurShopPage";
 import { OurMenuPage } from "./pages/guest/RestaurantPage/OurMenuPage";
+import CheckoutPage from "./pages/auth/CheckoutPage";
+import AuthLayout from "./layouts/AuthLayout";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,15 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/checkout",
+        element: <CheckoutPage />,
+      },
+    ],
+  }
 ]);
 
 function App() {

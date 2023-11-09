@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import useCartStore from "~/store/cartStore";
+import { useNavigate } from "react-router-dom";
 
 const CartSection = () => {
   const {
@@ -11,6 +12,8 @@ const CartSection = () => {
     foods,
     fetchCartData,
   } = useCartStore();
+
+  const navigate = useNavigate()
 
   // Calculate total food count using foodCounts state
   const calculateTotalFoodCount = useCallback(() => {
@@ -112,7 +115,7 @@ const CartSection = () => {
               <span className="font-bold text-base ml-auto mb-2">
                 {formattedTotalPrice}
               </span>
-              <button className="btn btn-primary btn-block">
+              <button onClick={() => navigate('/checkout')} className="btn btn-primary btn-block">
                 Continue to checkout
               </button>
             </div>
@@ -128,6 +131,7 @@ const CartSection = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

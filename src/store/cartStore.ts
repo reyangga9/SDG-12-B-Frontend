@@ -3,8 +3,6 @@ import Cookies from "js-cookie";
 import { axiosInstance } from "~/lib/axiosInstance";
 import { Restaurant } from "~/hook/useRestaurantHook";
 
-
-
 interface CartStore {
   restaurant: Restaurant | null;
   foods: any[] | null;
@@ -24,7 +22,20 @@ const useCartStore = create<CartStore>((set) => ({
   handleIncrement: async (id: string, restoId: string) => {
     const state = useCartStore.getState();
     if (state.restaurant && restoId !== state.restaurant._id) {
-      await state.removeAllCartItems();
+
+      console.log('ini resto', state.restaurant._id)
+      // Different restoId detected, show alert
+      const confirmation = window.confirm(
+        "Want to order from this resto instead?\nSure thing, but we’ll need to clear the items in your current cart from the previous resto first."
+      );
+
+      if (confirmation) {
+        // User confirmed, clear the cart and proceed
+        await state.removeAllCartItems();
+      } else {
+        // User canceled, do nothing
+        return;
+      }
     }
     const auth_token = Cookies.get("auth_token");
     const newCount = state.foodCounts[id] ? state.foodCounts[id] + 1 : 1;
