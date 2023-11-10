@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "~/store/authStore";
 import { axiosInstance } from "~/lib/axiosInstance";
+import axios from "axios";
 
 const useAuthHook = () => {
     const authStore = useAuthStore(); // Access the auth store
@@ -60,8 +61,21 @@ const useAuthHook = () => {
             console.log('Sign Up Success:', response.data);
             // Handle successful sign up, such as redirecting the user or showing a success message.
         } catch (error) {
-            console.error('Sign Up Failed:', error);
-            // Handle sign up failure, such as displaying an error message to the user.
+            if (axios.isAxiosError(error) && error.response) {
+                if (error.response.status === 400) {
+                    // Handle the case where username and email are already in use
+                    alert('Username dan email sudah digunakan.');
+                } else {
+                    // Handle other validation errors or display a generic error message
+                    alert('Terjadi kesalahan dalam pendaftaran.');
+                    // console.error('Sign Up Failed:', error);
+
+                }
+            } else {
+                console.error('Sign Up Failed:', error);
+                // Handle other types of errors, such as network issues
+                alert('Terjadi kesalahan dalam pendaftaran.');
+            }
         }
     };
 
