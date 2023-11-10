@@ -16,6 +16,8 @@ const CheckoutPage = () => {
 
     const [imageLoaded, setImageLoaded] = useState(false);
     const navigate = useNavigate();
+    const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+
 
 
     // Calculate total food count using foodCounts state
@@ -47,14 +49,25 @@ const CheckoutPage = () => {
 
     const isFoodSelected = calculateTotalFoodCount() > 0;
 
+    useEffect(() => {
+        // Fetch cart data when the component mounts
+        fetchCartData()
+            .then(() => {
+                setIsFetchCompleted(true);
+            });
+    }, [fetchCartData]);
+
+
     return (
         <div className="container mx-auto p-10">
             <div className="flex w-full items-center justify-center">
-                <button id="search" className="btn btn-ghost btn-circle mr-2" onClick={() => navigate(-1)}>
-                    <ArrowLeft className="text-primary" size={30} />
-                </button>
+                {foods && (
+                    <button id="search" className="btn btn-ghost btn-circle mr-2" onClick={() => navigate(`/restaurant/${foods[0].restoId}`)}>
+                        <ArrowLeft className="text-primary" size={25} />
+                    </button>
+                )}
                 {restaurant && (
-                    <h2 className="text-3xl font-semibold">
+                    <h2 className="text-2xl font-semibold">
                         {restaurant.nama}
                     </h2>
                 )}
@@ -120,7 +133,7 @@ const CheckoutPage = () => {
                         })}
                     </div>
                 </div>
-                {!isFoodSelected && (
+                {isFetchCompleted && !isFoodSelected && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 bg-black opacity-50" />
                         <dialog
