@@ -2,6 +2,9 @@ import { SkeletonCardFood } from "~/components/SkeletonCardFood";
 import { MenuSectionProps } from "./types";
 import { Minus, Plus } from "lucide-react";
 import useAuthHook from "~/hook/useAuthHook";
+import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
+
 
 const MenuSection: React.FC<MenuSectionProps> = ({
     foods,
@@ -21,7 +24,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                     </div>
                 ))
                 : foods.map((food, index) => (
-                    <div key={index}>
+                    <div key={index} className="relative">
                         <div className="card w-72 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transition-all duration-300">
                             <figure className="px-2 pt-2">
                                 <img
@@ -36,9 +39,16 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                     }}
                                 />
                             </figure>
-                            <div className="card-body px-3 py-3">
-                                <h2 className="card-title">{food.makanan}</h2>
-                                <p className="text-base font-medium">
+                            <div className="card-body px-3 py-3 ">
+                                <h2 className="text-xl font-semibold h-5">{food.makanan}</h2>
+                                <div className="flex mt-10">
+                                    <p className="text-base font-medium">Dijual sampai:</p>
+                                    <p className="text-base font-medium">
+                                        <span>{format(new Date(food.tanggalExpired), "d MMMM yyyy", { locale: id })}</span>
+                                    </p>
+                                </div>
+
+                                <p className="text-xl font-semibold mt-5">
                                     {new Intl.NumberFormat("id-ID", {
                                         style: "currency",
                                         currency: "IDR",
@@ -83,6 +93,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                             </div>
                         </div>
                     </div>
+
                 ))}
         </div>
     );
