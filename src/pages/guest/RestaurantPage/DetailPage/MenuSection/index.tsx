@@ -40,21 +40,31 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                 />
                             </figure>
                             <div className="card-body px-3 py-3 ">
-                                <h2 className="text-xl font-semibold h-5">{food.makanan}</h2>
-                                <div className="flex mt-10">
+                                <h2 className="text-[22px] font-semibold h-5">{food.makanan}</h2>
+                                <div className="flex mt-5">
                                     <p className="text-base font-medium">Dijual sampai:</p>
                                     <p className="text-base font-medium">
                                         <span>{format(new Date(food.tanggalExpired), "d MMMM yyyy", { locale: id })}</span>
                                     </p>
                                 </div>
-
-                                <p className="text-xl font-semibold mt-5">
+                                <div className="flex items-center gap-3">
+                                    <div className="badge py-3 bg-red-100 text-red-500 font-semibold text-lg">{food.discountPercentage}%</div>
+                                    <p className="text-lg font-semibold line-through text-neutral-500">
+                                        {new Intl.NumberFormat("id-ID", {
+                                            style: "currency",
+                                            currency: "IDR",
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 0,
+                                        }).format(food.harga)}
+                                    </p>
+                                </div>
+                                <p className="text-2xl font-semibold mt-2">
                                     {new Intl.NumberFormat("id-ID", {
                                         style: "currency",
                                         currency: "IDR",
                                         minimumFractionDigits: 0,
                                         maximumFractionDigits: 0,
-                                    }).format(food.harga)}
+                                    }).format(food.hargaDiscount)}
                                 </p>
                                 {foodCounts[food._id] > 0 ? (
                                     <div className="flex justify-center items-center mt-2">
