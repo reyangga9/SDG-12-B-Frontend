@@ -41,7 +41,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                             </figure>
                             <div className="card-body px-3 py-3 ">
                                 <h2 className="text-[22px] font-semibold h-5">{food.makanan}</h2>
-                                <div className="flex mt-5">
+                                <div className="flex mt-10">
                                     <p className="text-base font-medium">Dijual sampai:</p>
                                     <p className="text-base font-medium">
                                         <span>{format(new Date(food.tanggalExpired), "d MMMM yyyy", { locale: id })}</span>

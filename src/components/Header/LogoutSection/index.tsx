@@ -27,14 +27,14 @@ const LogoutSection: React.FC<LogoutSectionProps> = ({
                             <div className="modal-action">
                                 <div>
                                     <button
-                                        className="btn btn-primary btn-block"
+                                        className="btn btn-primary btn-block normal-case text-lg"
                                         onClick={handleLogout}
                                     >
                                         Log out
                                     </button>
                                 </div>
                                 {/* No, Stay button will close the modal */}
-                                <button className="btn" onClick={closeModal}>
+                                <button className="btn normal-case text-lg" onClick={closeModal}>
                                     No
                                 </button>
                             </div>
