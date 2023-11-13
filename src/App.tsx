@@ -9,7 +9,6 @@ import { BestSellerPage } from "./pages/guest/RestaurantPage/BestSellerPage";
 import { DetailPage } from "./pages/guest/RestaurantPage/DetailPage";
 import { MostLovedPage } from "./pages/guest/RestaurantPage/MostLovedPage";
 import { OurShopPage } from "./pages/guest/RestaurantPage/OurShopPage";
-import { OurMenuPage } from "./pages/guest/RestaurantPage/OurMenuPage";
 import CheckoutPage from "./pages/auth/CheckoutPage";
 import AuthLayout from "./layouts/AuthLayout";
 
@@ -32,10 +31,6 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
-      },
-      {
-        path: "/restaurants/our_menu",
-        element: <OurMenuPage />,
       },
       {
         path: "/restaurants/our_shop",

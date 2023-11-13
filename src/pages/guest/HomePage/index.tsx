@@ -45,9 +45,8 @@ const HomePage = () => {
               className="card !rounded-xl w-56 h-full bg-base-100 border hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:border-none mb-8 transform hover:scale-[1.02] transition-all duration-300 ease-in-out"
             >
               <figure
-                className={`px-10 pt-10   transition-all duration-500 ease-in-out filter ${
-                  !imageLoaded ? "blur-lg" : ""
-                }`}
+                className={`px-10 pt-10   transition-all duration-500 ease-in-out filter ${!imageLoaded ? "blur-lg" : ""
+                  }`}
                 onLoad={() => {
                   setTimeout(() => {
                     setImageLoaded(true);
@@ -69,11 +68,9 @@ const HomePage = () => {
           {cardData2.map((card2, index) => (
             <figure
               key={index}
-              className={`w-60 h-25 ${
-                index !== 3 ? "border-r-2" : ""
-              } px-10 transition-all duration-500 ease-in-out filter ${
-                !imageLoaded ? "blur-lg" : ""
-              }`}
+              className={`w-60 h-25 ${index !== 3 ? "border-r-2" : ""
+                } px-10 transition-all duration-500 ease-in-out filter ${!imageLoaded ? "blur-lg" : ""
+                }`}
               onLoad={() => {
                 setTimeout(() => {
                   setImageLoaded(true);

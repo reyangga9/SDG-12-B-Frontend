@@ -8,7 +8,7 @@ const RestaurantSection: React.FC<RestaurantSectionProps> = ({ restaurants, load
     const [imageLoaded, setImageLoaded] = useState(false);
 
     return (
-        <section className='flex flex-wrap gap-5 mt-10'>
+        <section className='flex flex-wrap max-sm:justify-center gap-5 mt-10'>
             {loading ? (
                 Array.from({ length: 6 }).map((_, index) => (
                     <div key={index}>
@@ -44,8 +44,9 @@ const RestaurantSection: React.FC<RestaurantSectionProps> = ({ restaurants, load
                         </div>
                     </Link>
                 ))
-            )}
-        </section>
+            )
+            }
+        </section >
     );
 };
 
