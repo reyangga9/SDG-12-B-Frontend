@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "~/assets/FoodGuardian-logo.png";
-import { navLinks } from "./constants";
+import { mobileNavLinks, navLinks } from "./constants";
 import { LuSearch, LuMenu } from "react-icons/lu";
 import { useState } from "react";
 import { LogOut } from "lucide-react";
@@ -48,7 +48,7 @@ const Header = () => {
                 ></label>
                 <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content font-semibold">
                   {/* Sidebar content here */}
-                  {navLinks.map((item, index) => (
+                  {mobileNavLinks.map((item, index) => (
                     <li key={index}>
                       <Link
                         to={item.url}
