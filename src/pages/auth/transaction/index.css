@@ -1,0 +1,5 @@
+.disabled-card {
+  opacity: 0.7; /* Adjust the opacity as needed */
+  pointer-events: none; /* Disable pointer events on the card */
+  /* Add any other styles to visually indicate that the card is disabled */
+}

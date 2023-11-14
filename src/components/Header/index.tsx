@@ -11,7 +11,7 @@ import useAuthHook from "~/hook/useAuthHook";
 const Header = () => {
   const location = useLocation();
   const [isOpenModal, setOpenModal] = useState(false);
-  const { isAuthenticated, user, handleLogout, } = useAuthHook();
+  const { isAuthenticated, user, handleLogout } = useAuthHook();
 
   const openModal = () => {
     setOpenModal(true);
@@ -86,7 +86,11 @@ const Header = () => {
             </ul>
           </div>
           <div className="flex-none">
-            <button id="search" className="btn btn-ghost btn-circle" onClick={() => navigate('/search')}>
+            <button
+              id="search"
+              className="btn btn-ghost btn-circle"
+              onClick={() => navigate("/search")}
+            >
               <LuSearch size={20} />
             </button>
             <div>
@@ -138,7 +142,8 @@ const Header = () => {
               handleLogout={handleLogout}
               closeModal={closeModal}
             />
-            {!isCheckoutPage && <CartSection />} {/* Render CartSection only on CheckoutPage */}
+            {!isCheckoutPage && <CartSection />}{" "}
+            {/* Render CartSection only on CheckoutPage */}
           </div>
         </div>
       </div>

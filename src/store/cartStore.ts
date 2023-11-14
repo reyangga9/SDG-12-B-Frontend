@@ -12,6 +12,7 @@ interface CartStore {
   handleDecrement: (id: string, restoId: string) => Promise<void>;
   fetchCartData: () => Promise<void>;
   removeAllCartItems: () => Promise<void>;
+  handleCheckout: () => Promise<void>; // Add this function
 }
 
 const useCartStore = create<CartStore>((set) => ({
@@ -22,8 +23,7 @@ const useCartStore = create<CartStore>((set) => ({
   handleIncrement: async (id: string, restoId: string) => {
     const state = useCartStore.getState();
     if (state.restaurant && restoId !== state.restaurant._id) {
-
-      console.log('ini resto', state.restaurant._id)
+      console.log("ini resto", state.restaurant._id);
       // Different restoId detected, show alert
       const confirmation = window.confirm(
         "Want to order from this resto instead?\nSure thing, but we’ll need to clear the items in your current cart from the previous resto first."
@@ -43,7 +43,12 @@ const useCartStore = create<CartStore>((set) => ({
       Authorization: `Bearer ${auth_token}`,
       "Content-Type": "application/json",
     };
-    const response = await axiosInstance.post("/cart/add", { foodId: id, quantity: 1 }, { headers });
+
+    const response = await axiosInstance.post(
+      "/cart/add",
+      { foodId: id, quantity: 1 },
+      { headers }
+    );
     if (response.data.is_success) {
       set((state) => ({
         foodCounts: { ...state.foodCounts, [id]: newCount },
@@ -57,12 +62,18 @@ const useCartStore = create<CartStore>((set) => ({
       await state.removeAllCartItems();
     }
     const auth_token = Cookies.get("auth_token");
-    const newCount = state.foodCounts[id] ? Math.max(state.foodCounts[id] - 1, 0) : 0;
+    const newCount = state.foodCounts[id]
+      ? Math.max(state.foodCounts[id] - 1, 0)
+      : 0;
     const headers = {
       Authorization: `Bearer ${auth_token}`,
       "Content-Type": "application/json",
     };
-    const response = await axiosInstance.post("/cart/add", { foodId: id, quantity: -1 }, { headers });
+    const response = await axiosInstance.post(
+      "/cart/add",
+      { foodId: id, quantity: -1 },
+      { headers }
+    );
     if (response.data.is_success) {
       set((state) => ({
         foodCounts: { ...state.foodCounts, [id]: newCount },
@@ -97,13 +108,64 @@ const useCartStore = create<CartStore>((set) => ({
     const headers = {
       Authorization: `Bearer ${auth_token}`,
     };
-    const response = await axiosInstance.delete("https://sdg-12-b-backend-production.up.railway.app/api/cart/remove/allCart", { headers });
+    const response = await axiosInstance.delete(
+      "https://sdg-12-b-backend-production.up.railway.app/api/cart/remove/allCart",
+      { headers }
+    );
     if (response.data.is_success) {
       set(() => ({
         restaurant: null,
         foods: null,
         foodCounts: {},
       }));
+    }
+  },
+  handleCheckout: async () => {
+    try {
+      const state = useCartStore.getState();
+      const auth_token = Cookies.get("auth_token");
+      const headers = {
+        Authorization: `Bearer ${auth_token}`,
+      };
+
+      const response = await axiosInstance.post(
+        "https://sdg-12-b-backend-production.up.railway.app/api/transaction/add",
+        {
+          cartItems: Object.entries(state.foodCounts).map(
+            ([foodId, quantity]) => ({
+              foodId,
+              quantity,
+            })
+          ),
+        },
+        { headers }
+      );
+
+      console.log("Checkout successful:", response.data);
+
+      await state.removeAllCartItems();
+
+      // Add any additional logic after a successful checkout
+    } catch (error: any) {
+      console.error("Checkout failed:", error);
+
+      // Handle errors during checkout
+      if (error.response && error.response.status === 400) {
+        // Check if the error is due to insufficient quantity
+        const errorMessage = error.response.data.error; // Adjust this based on the actual error structure
+        if (errorMessage.includes("Insufficient")) {
+          // Display a user-friendly error message for insufficient quantity
+          alert(
+            "Insufficient quantity. Please update your cart and try again."
+          );
+        } else {
+          // Handle other types of 400 errors
+          alert("An error occurred during checkout. Please try again later.");
+        }
+      } else {
+        // Handle other types of errors (non-400 errors)
+        alert("An unexpected error occurred. Please try again later.");
+      }
     }
   },
 }));

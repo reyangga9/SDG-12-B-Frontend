@@ -3,6 +3,7 @@ import { ArrowLeft, BadgeDollarSign, Minus, Plus } from "lucide-react";
 import useCartStore from "~/store/cartStore";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CheckoutPage = () => {
   const {
@@ -12,6 +13,7 @@ const CheckoutPage = () => {
     restaurant,
     foods,
     fetchCartData,
+    handleCheckout,
   } = useCartStore();
 
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -177,8 +179,26 @@ const CheckoutPage = () => {
               <div className="mb-4">
                 <span className="font-semibold">Price</span>
               </div>
+
               <div>{formattedTotalPrice}</div>
             </div>
+            <button
+              className="bg-primary rounded-full p-4 w-40 text-white mx-auto"
+              onClick={() => {
+                const confirmation = window.confirm(
+                  "Are you sure you want to proceed with the checkout?"
+                );
+                if (confirmation) {
+                  console.log("checkout berhasil");
+                  handleCheckout();
+                } else {
+                  console.log("checkout dibatalkan");
+                  // Add any logic you want to execute if the checkout is canceled
+                }
+              }}
+            >
+              Checkout
+            </button>
           </div>
         </div>
       </div>

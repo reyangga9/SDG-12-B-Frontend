@@ -12,6 +12,7 @@ import { OurShopPage } from "./pages/guest/RestaurantPage/OurShopPage";
 import CheckoutPage from "./pages/auth/CheckoutPage";
 import AuthLayout from "./layouts/AuthLayout";
 import SearchPage from "./pages/guest/SearchPage";
+import TransactionPage from "./pages/auth/transaction";
 
 const router = createBrowserRouter([
   {
@@ -62,8 +63,12 @@ const router = createBrowserRouter([
         path: "/checkout",
         element: <CheckoutPage />,
       },
+      {
+        path: "/transaction",
+        element: <TransactionPage />,
+      },
     ],
-  }
+  },
 ]);
 
 function App() {
