@@ -11,11 +11,8 @@ import { MostLovedPage } from "./pages/guest/RestaurantPage/MostLovedPage";
 import OurShopPage from "./pages/guest/RestaurantPage/OurShopPage";
 import CheckoutPage from "./pages/auth/CheckoutPage";
 import AuthLayout from "./layouts/AuthLayout";
-<<<<<<< HEAD
 import SearchPage from "./pages/guest/SearchPage";
 import TransactionPage from "./pages/auth/transaction";
-=======
->>>>>>> c0ffe4733a6ab1d58ffc2eaadc32f0f482f7defd
 
 const router = createBrowserRouter([
   {
@@ -32,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/about-us",
         element: <AboutUsPage />,
+      },
+      {
+        path: "/search",
+        element: <SearchPage />,
       },
       {
         path: "/login",
