@@ -20,7 +20,7 @@ export default function OurShopPage() {
         `https://sdg-12-b-backend-production.up.railway.app/api/restaurant/search/${searchInput}`
       );
       setSearchResults(response.data.restaurant);
-      console.log('tes', response)
+      console.log("tes", response);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -39,7 +39,6 @@ export default function OurShopPage() {
   return (
     <>
       <div className="min-h-screen">
-
         <div className="container mx-auto px-32 py-10">
           <div className="font-semibold text-4xl mb-4">
             <span>Our Shop</span>
@@ -61,7 +60,6 @@ export default function OurShopPage() {
           </form>
           <RestaurantSection restaurants={searchResults} loading={loading} />
         </div>
-
       </div>
     </>
   );

@@ -13,7 +13,7 @@ const CartSection = () => {
     fetchCartData,
   } = useCartStore();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Calculate total food count using foodCounts state
   const calculateTotalFoodCount = useCallback(() => {
@@ -87,14 +87,18 @@ const CartSection = () => {
                 <span className="font-semibold">{foodItem.makanan}</span>
                 <div className="grid grid-cols-3 items-center gap-3 ml-10">
                   <button
-                    onClick={() => handleDecrement(foodItem._id, foodItem.restoId)}
+                    onClick={() =>
+                      handleDecrement(foodItem._id, foodItem.restoId)
+                    }
                     className="btn btn-xs btn-circle btn-primary"
                   >
                     <Minus size={15} strokeWidth={3} />
                   </button>
                   <span className="text-center">{foodCount}</span>
                   <button
-                    onClick={() => handleIncrement(foodItem._id, foodItem.restoId)}
+                    onClick={() =>
+                      handleIncrement(foodItem._id, foodItem.restoId)
+                    }
                     className="btn btn-xs btn-circle btn-primary"
                   >
                     <Plus size={15} strokeWidth={3} />
@@ -117,7 +121,10 @@ const CartSection = () => {
               <span className="font-bold text-base ml-auto mb-2">
                 {formattedTotalPrice}
               </span>
-              <button onClick={() => navigate('/checkout')} className="btn btn-primary btn-block">
+              <button
+                onClick={() => navigate("/checkout")}
+                className="btn btn-primary btn-block"
+              >
                 Continue to checkout
               </button>
             </div>
@@ -133,7 +140,6 @@ const CartSection = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
