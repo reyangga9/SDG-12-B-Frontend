@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import useCartStore from "~/store/cartStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartSection = () => {
   const {
@@ -74,9 +74,11 @@ const CartSection = () => {
         <div className="card-body">
           <span className="font-semibold text-lg">Your Order</span>
           {isFoodSelected && restaurant && (
-            <h2 className="text-sm text-neutral-600 -mt-2 mb-5">
-              {restaurant.nama}
-            </h2>
+            <Link to={`/restaurant/${restaurant._id}`}>
+              <h2 className="text-sm text-neutral-600 -mt-2 mb-5 hover:text-primary">
+                {restaurant.nama}
+              </h2>
+            </Link>
           )}
           {foods?.map((foodItem, index) => {
             const foodCount = foodCounts[foodItem._id] || 0;
