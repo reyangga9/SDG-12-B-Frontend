@@ -7,7 +7,7 @@ import wo2 from '~/assets/daily-discounts.png';
 import wo3 from '~/assets/quick-delivery.png';
 
 export const cardData: Card[] = [
-    { image: inspo1, title: 'Our Shop!', link: '/restaurants/our_shop' },
+    { image: inspo1, title: 'Our Shop!', link: '/restaurants/our_shop/search' },
     { image: inspo2, title: 'Best Sellers', link: '/restaurants/best_seller' },
     { image: inspo3, title: 'Most Loved', link: '/restaurants/most_loved' },
 ];

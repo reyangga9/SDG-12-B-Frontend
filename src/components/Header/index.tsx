@@ -86,7 +86,7 @@ const Header = () => {
             </ul>
           </div>
           <div className="flex-none">
-            <button id="search" className="btn btn-ghost btn-circle" onClick={() => navigate('/search')}>
+            <button id="search" className="btn btn-ghost btn-circle" onClick={() => navigate('/restaurants/our_shop/search')}>
               <LuSearch size={20} />
             </button>
             <div>
