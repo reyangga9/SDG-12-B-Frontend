@@ -2,9 +2,8 @@ import { SkeletonCardFood } from "~/components/SkeletonCardFood";
 import { MenuSectionProps } from "./types";
 import { Minus, Plus } from "lucide-react";
 import useAuthHook from "~/hook/useAuthHook";
-import { format } from 'date-fns';
-import { id } from 'date-fns/locale';
-
+import dayjs from 'dayjs';
+import 'dayjs/locale/id'; // Import locale for Indonesian language
 
 const MenuSection: React.FC<MenuSectionProps> = ({
     foods,
@@ -15,6 +14,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({
     setImageLoaded,
 }) => {
     const { isAuthenticated } = useAuthHook();
+    dayjs.locale('id'); // Set locale to Indonesian
+
     return (
         <div className="flex flex-wrap gap-5 mt-20">
             {!foods || foods.length === 0
@@ -44,7 +45,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                                 <div className="flex mt-10">
                                     <p className="text-base font-medium">Dijual sampai:</p>
                                     <p className="text-base font-medium">
-                                        <span>{format(new Date(food.tanggalExpired), "d MMMM yyyy", { locale: id })}</span>
+                                        <span>{dayjs(food.tanggalExpired).format("D MMMM YYYY")}</span>
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3">

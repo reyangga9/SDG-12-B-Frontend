@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "~/assets/FoodGuardian-logo.png";
 import { mobileNavLinks, navLinks } from "./constants";
 import { LuSearch, LuMenu } from "react-icons/lu";
@@ -20,6 +20,8 @@ const Header = () => {
   const closeModal = () => {
     setOpenModal(false);
   };
+
+  const navigate = useNavigate();
 
   // Determine if the current route is CheckoutPage
   const isCheckoutPage = location.pathname === "/checkout"; // Change "/checkout" to the ac
@@ -84,7 +86,7 @@ const Header = () => {
             </ul>
           </div>
           <div className="flex-none">
-            <button id="search" className="btn btn-ghost btn-circle">
+            <button id="search" className="btn btn-ghost btn-circle" onClick={() => navigate('/search')}>
               <LuSearch size={20} />
             </button>
             <div>
