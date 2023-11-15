@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { axiosInstance } from "~/lib/axiosInstance";
 import { Restaurant } from "~/hook/useRestaurantHook";
 import Swal from 'sweetalert2';
+import { ConfirmationSweetAlert } from "~/components/SweetAlert2";
 
 
 interface CartStore {
@@ -27,41 +28,10 @@ const useCartStore = create<CartStore>((set) => ({
     if (state.restaurant && restoId !== state.restaurant._id) {
       console.log("ini resto", state.restaurant._id);
       // Different restoId detected, show alert
-      const result = await Swal.fire({
+      const result = await ConfirmationSweetAlert({
         title: "Want to order from this resto instead?",
         text: "Sure thing, but we’ll need to clear the items in your current cart from the previous resto first.",
         icon: "question",
-        showCancelButton: true,
-        iconColor: '#ef4444',
-        color: 'black',
-        confirmButtonColor: '#096C2F',
-        confirmButtonText: "Yes, clear cart",
-        cancelButtonText: "No, keep cart",
-        customClass: {
-          container: 'sweet-alert-container',
-          popup: 'sweet-alert-popup',
-          confirmButton: 'sweet-alert-confirm-button',
-          cancelButton: 'sweet-alert-cancel-button',
-        },
-        willOpen: () => {
-          // const container = Swal.getContainer();
-          const popup = Swal.getPopup();
-          const confirmButton = Swal.getConfirmButton();
-          const cancelButton = Swal.getCancelButton();
-
-          // if (container) {
-          //     container.style.backdropFilter = 'blur(2px)';
-          // }
-          if (popup) {
-            popup.style.borderRadius = '30px';
-          }
-          if (confirmButton) {
-            confirmButton.style.borderRadius = '15px';
-          }
-          if (cancelButton) {
-            cancelButton.style.borderRadius = '15px';
-          }
-        },
       });
 
       if (result.isConfirmed) {
