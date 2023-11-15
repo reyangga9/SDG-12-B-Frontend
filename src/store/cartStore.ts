@@ -97,7 +97,9 @@ const useCartStore = create<CartStore>((set) => ({
       const headers = {
         Authorization: `Bearer ${auth_token}`,
       };
-      const response = await axiosInstance.get("/cart/user/allCart", { headers });
+      const response = await axiosInstance.get("/cart/user/allCart", {
+        headers,
+      });
 
       if (response.data.is_success) {
         const newFoodCounts: { [id: string]: number } = {};
@@ -117,12 +119,12 @@ const useCartStore = create<CartStore>((set) => ({
         }));
       } else {
         // Handle the case where the response indicates an error (e.g., response.data.is_success is false)
-        console.error("Error: Response indicates failure");
+        // console.error("Error: Response indicates failure");
         // You can add additional error handling code here if needed
       }
     } catch (error) {
       // Handle any exceptions that occur during the execution of the function
-      console.error("An error occurred:", error);
+      // console.error("An error occurred:", error);
       // You can also set an error state or display an error message to the user
     }
   },
