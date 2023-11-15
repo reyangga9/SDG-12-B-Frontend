@@ -2,7 +2,6 @@ import create from "zustand";
 import Cookies from "js-cookie";
 import { axiosInstance } from "~/lib/axiosInstance";
 import { Restaurant } from "~/hook/useRestaurantHook";
-import Swal from 'sweetalert2';
 import { ConfirmationSweetAlert } from "~/components/SweetAlert2";
 
 
@@ -26,7 +25,7 @@ const useCartStore = create<CartStore>((set) => ({
   handleIncrement: async (id: string, restoId: string) => {
     const state = useCartStore.getState();
     if (state.restaurant && restoId !== state.restaurant._id) {
-      console.log("ini resto", state.restaurant._id);
+      console.log("currentRestoId", state.restaurant._id);
       // Different restoId detected, show alert
       const result = await ConfirmationSweetAlert({
         title: "Want to order from this resto instead?",
@@ -37,6 +36,7 @@ const useCartStore = create<CartStore>((set) => ({
       if (result.isConfirmed) {
         // User confirmed, clear the cart and proceed
         await state.removeAllCartItems();
+
       } else {
         // User canceled, do nothing
         return;
@@ -64,6 +64,7 @@ const useCartStore = create<CartStore>((set) => ({
   },
   handleDecrement: async (id: string, restoId: string) => {
     const state = useCartStore.getState();
+
     if (state.restaurant && restoId !== state.restaurant._id) {
       await state.removeAllCartItems();
     }
@@ -101,6 +102,7 @@ const useCartStore = create<CartStore>((set) => ({
       foodList.forEach((food: any) => {
         newFoodCounts[food._id] = food.quantity; // Assuming food has an ID and quantity property
       });
+
       set(() => ({
         restaurant: resto,
         foods: foodList,
@@ -109,6 +111,7 @@ const useCartStore = create<CartStore>((set) => ({
       }));
     }
   },
+
   removeAllCartItems: async () => {
     const auth_token = Cookies.get("auth_token");
     const headers = {

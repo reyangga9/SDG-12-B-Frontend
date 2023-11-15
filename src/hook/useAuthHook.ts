@@ -35,7 +35,7 @@ const useAuthHook = () => {
                 userData
             );
             // console.log("Sign In Success:", response.data);
-            SuccessSweetAlert({ title: 'Sign In Success', text: response.data });
+            SuccessSweetAlert({ title: 'Sign In Success', text: 'Login Berhasil' });
 
             // Store the token in a cookie
             Cookies.set("auth_token", response.data.token, { expires: 1 }); // Cookie expires in 1 day
@@ -61,7 +61,7 @@ const useAuthHook = () => {
                 userData
             );
             // console.log('Sign Up Success:', response.data);
-            SuccessSweetAlert({ title: 'Sign Up Success', text: response.data });
+            SuccessSweetAlert({ title: 'Sign Up Success', text: 'Register Berhasil' });
 
             // Store the token in a cookie
             Cookies.set("auth_token", response.data.token, { expires: 1 }); // Cookie expires in 1 day

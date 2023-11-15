@@ -18,9 +18,8 @@ const TransactionPage: React.FC = () => {
         {transactions.map((transaction) => (
           <div
             key={transaction._id}
-            className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${
-              transaction.isCompleted ? "opacity-70 bg-slate-400" : ""
-            }`}
+            className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${transaction.isCompleted ? "opacity-70 bg-slate-400" : ""
+              }`}
           >
             <h3 className="text-lg font-semibold mb-4">
               Transaction ID: {transaction._id}

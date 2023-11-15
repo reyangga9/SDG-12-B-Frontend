@@ -34,7 +34,7 @@ const CheckoutPage = () => {
     return (
       foods?.reduce((totalPrice, food) => {
         const count = foodCounts[food._id] || 0;
-        return totalPrice + food.harga * count;
+        return totalPrice + food.hargaDiscount * count;
       }, 0) || 0
     );
   }, [foods, foodCounts]);
@@ -95,7 +95,7 @@ const CheckoutPage = () => {
                           currency: "IDR",
                           minimumFractionDigits: 0,
                           maximumFractionDigits: 0,
-                        }).format(foodItem.harga * foodCount)}
+                        }).format(foodItem.hargaDiscount * foodCount)}
                       </p>
                     </div>
                     <div className="flex flex-col items-center">
@@ -103,9 +103,8 @@ const CheckoutPage = () => {
                         <img
                           src={foodItem.gambarMakanan}
                           alt={foodItem.makanan}
-                          className={`w-20 h-20 border object-cover bg-gray-100 rounded-xl transition-all duration-500 ease-in-out filter ${
-                            !imageLoaded ? "blur-lg" : ""
-                          }`}
+                          className={`w-20 h-20 border object-cover bg-gray-100 rounded-xl transition-all duration-500 ease-in-out filter ${!imageLoaded ? "blur-lg" : ""
+                            }`}
                           onLoad={() => {
                             setTimeout(() => {
                               setImageLoaded(true);

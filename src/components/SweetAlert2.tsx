@@ -28,16 +28,16 @@ export const ConfirmationSweetAlert = async ({
             cancelButton: 'sweet-alert-cancel-button',
         },
         willOpen: () => {
-            const container = Swal.getContainer();
+            // const container = Swal.getContainer();
             const popup = Swal.getPopup();
             const confirmButton = Swal.getConfirmButton();
             const cancelButton = Swal.getCancelButton();
 
-            if (container) {
-                container.style.backdropFilter = 'blur(2px)';
-            }
+            // if (container) {
+            //     container.style.backdropFilter = 'blur(2px)';
+            // }
             if (popup) {
-                popup.style.borderRadius = '12px';
+                popup.style.borderRadius = '20px';
             }
             if (confirmButton) {
                 confirmButton.style.borderRadius = '10px';
