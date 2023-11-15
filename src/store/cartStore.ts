@@ -25,14 +25,43 @@ const useCartStore = create<CartStore>((set) => ({
   handleIncrement: async (id: string, restoId: string) => {
     const state = useCartStore.getState();
     if (state.restaurant && restoId !== state.restaurant._id) {
-      // Different restoId detected, show SweetAlert2 confirmation
+      console.log("ini resto", state.restaurant._id);
+      // Different restoId detected, show alert
       const result = await Swal.fire({
-        title: 'Want to order from this resto instead?',
-        text: 'Sure thing, but we’ll need to clear the items in your current cart from the previous resto first.',
-        icon: 'question',
+        title: "Want to order from this resto instead?",
+        text: "Sure thing, but we’ll need to clear the items in your current cart from the previous resto first.",
+        icon: "question",
         showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
+        iconColor: '#ef4444',
+        color: 'black',
+        confirmButtonColor: '#096C2F',
+        confirmButtonText: "Yes, clear cart",
+        cancelButtonText: "No, keep cart",
+        customClass: {
+          container: 'sweet-alert-container',
+          popup: 'sweet-alert-popup',
+          confirmButton: 'sweet-alert-confirm-button',
+          cancelButton: 'sweet-alert-cancel-button',
+        },
+        willOpen: () => {
+          // const container = Swal.getContainer();
+          const popup = Swal.getPopup();
+          const confirmButton = Swal.getConfirmButton();
+          const cancelButton = Swal.getCancelButton();
+
+          // if (container) {
+          //     container.style.backdropFilter = 'blur(2px)';
+          // }
+          if (popup) {
+            popup.style.borderRadius = '30px';
+          }
+          if (confirmButton) {
+            confirmButton.style.borderRadius = '15px';
+          }
+          if (cancelButton) {
+            cancelButton.style.borderRadius = '15px';
+          }
+        },
       });
 
       if (result.isConfirmed) {
