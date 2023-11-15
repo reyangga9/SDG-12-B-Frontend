@@ -66,7 +66,7 @@ const useTransactionStore = create<TransactionStore>((set) => ({
       if (response.status === 200) {
         // Trigger a fetch to get the updated data
         await useTransactionStore.getState().fetchTransactions();
-        console.log("Payment status updated successfully");
+        // console.log("Payment status updated successfully");
       }
     } catch (error) {
       console.error("Error updating payment status:", error);

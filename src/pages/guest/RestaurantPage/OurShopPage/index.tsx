@@ -20,7 +20,7 @@ export default function OurShopPage() {
         `https://sdg-12-b-backend-production.up.railway.app/api/restaurant/search/${searchInput}`
       );
       setSearchResults(response.data.restaurant);
-      console.log("tes", response);
+      // console.log("tes", response);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching search results:", error);

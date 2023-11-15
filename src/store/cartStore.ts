@@ -70,6 +70,7 @@ const useCartStore = create<CartStore>((set) => ({
     const newCount = state.foodCounts[id]
       ? Math.max(state.foodCounts[id] - 1, 0)
       : 0;
+
     const headers = {
       Authorization: `Bearer ${auth_token}`,
       "Content-Type": "application/json",
@@ -80,6 +81,10 @@ const useCartStore = create<CartStore>((set) => ({
       { headers }
     );
     if (response.data.is_success) {
+      if (newCount === 0) {
+        window.location.reload();
+      }
+
       set((state) => ({
         foodCounts: { ...state.foodCounts, [id]: newCount },
       }));

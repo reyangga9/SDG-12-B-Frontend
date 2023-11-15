@@ -103,8 +103,9 @@ const CheckoutPage = () => {
                         <img
                           src={foodItem.gambarMakanan}
                           alt={foodItem.makanan}
-                          className={`w-20 h-20 border object-cover bg-gray-100 rounded-xl transition-all duration-500 ease-in-out filter ${!imageLoaded ? "blur-lg" : ""
-                            }`}
+                          className={`w-20 h-20 border object-cover bg-gray-100 rounded-xl transition-all duration-500 ease-in-out filter ${
+                            !imageLoaded ? "blur-lg" : ""
+                          }`}
                           onLoad={() => {
                             setTimeout(() => {
                               setImageLoaded(true);
@@ -187,11 +188,11 @@ const CheckoutPage = () => {
                   "Are you sure you want to proceed with the checkout?"
                 );
                 if (confirmation) {
-                  console.log("checkout berhasil");
+                  // console.log("checkout berhasil");
                   handleCheckout();
                   navigate("/transaction");
                 } else {
-                  console.log("checkout dibatalkan");
+                  // console.log("checkout dibatalkan");
                   // Add any logic you want to execute if the checkout is canceled
                 }
               }}
