@@ -103,7 +103,6 @@ const TransactionPage: React.FC = () => {
                         if (result.isConfirmed) {
                           // Open the modal and pass the transactionId
                           openModal(transaction._id);
-                          console.log("Rating modal should open");
                         } else {
                           // Add any logic you want to execute if the checkout is canceled
                         }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useTransactionStore from "../../../store/transactionStore";
+import { Star } from "lucide-react";
 
 interface RatingModalProps {
   isOpenModal: boolean;
@@ -52,16 +53,15 @@ const RatingModal: React.FC<RatingModalProps> = ({
                   <label className="block font-bold text-lg mb-2">
                     Rating:
                   </label>
-                  <div>
+                  <div className="flex">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <span
+                      <Star
                         key={star}
-                        className={`cursor-pointer text-5xl ${star <= rating ? "text-yellow-500" : "text-gray-300"
-                          }`}
+                        size={40}
+                        fill={star <= rating ? 'yellow' : 'gray'}
+                        className='text-yellow-500 cursor-pointer'
                         onClick={() => handleRatingChange(star)}
-                      >
-                        ★
-                      </span>
+                      />
                     ))}
                   </div>
                 </div>
