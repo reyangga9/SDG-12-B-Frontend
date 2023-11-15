@@ -8,6 +8,7 @@ interface TransactionItem {
   foodId: string;
   quantity: number;
   subtotal: number;
+  makanan: string;
 }
 
 interface Transaction {

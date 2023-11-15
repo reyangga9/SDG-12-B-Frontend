@@ -4,7 +4,6 @@ import { axiosInstance } from "~/lib/axiosInstance";
 import { Restaurant } from "~/hook/useRestaurantHook";
 import { ConfirmationSweetAlert } from "~/components/SweetAlert2";
 
-
 interface CartStore {
   restaurant: Restaurant | null;
   foods: any[] | null;
@@ -25,7 +24,7 @@ const useCartStore = create<CartStore>((set) => ({
   handleIncrement: async (id: string, restoId: string) => {
     const state = useCartStore.getState();
     if (state.restaurant && restoId !== state.restaurant._id) {
-      console.log("currentRestoId", state.restaurant._id);
+      // console.log("currentRestoId", state.restaurant._id);
       // Different restoId detected, show alert
       const result = await ConfirmationSweetAlert({
         title: "Want to order from this resto instead?",
@@ -36,7 +35,6 @@ const useCartStore = create<CartStore>((set) => ({
       if (result.isConfirmed) {
         // User confirmed, clear the cart and proceed
         await state.removeAllCartItems();
-
       } else {
         // User canceled, do nothing
         return;

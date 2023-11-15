@@ -11,7 +11,7 @@ import { MostLovedPage } from "./pages/guest/RestaurantPage/MostLovedPage";
 import OurShopPage from "./pages/guest/RestaurantPage/OurShopPage";
 import CheckoutPage from "./pages/auth/CheckoutPage";
 import AuthLayout from "./layouts/AuthLayout";
-import TransactionPage from "./pages/auth/transaction";
+import TransactionPage from "./pages/auth/TransactionPage";
 
 const router = createBrowserRouter([
   {
