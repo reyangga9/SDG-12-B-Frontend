@@ -5,8 +5,7 @@ import RatingModal from "./RatingModal";
 import { ConfirmationSweetAlert } from "~/components/SweetAlert2";
 
 const TransactionPage: React.FC = () => {
-  const { transactions, fetchTransactions, handlePaymentComplete } =
-    useTransactionStore();
+  const { transactions, fetchTransactions } = useTransactionStore();
 
   useEffect(() => {
     fetchTransactions();
@@ -22,12 +21,17 @@ const TransactionPage: React.FC = () => {
   };
 
   const [isOpenModal, setOpenModal] = useState(false);
+  const [currentTransactionId, setCurrentTransactionId] = useState<
+    string | null
+  >(null);
 
-  const openModal = () => {
+  const openModal = (transactionId: string) => {
+    setCurrentTransactionId(transactionId);
     setOpenModal(true);
   };
 
   const closeModal = () => {
+    setCurrentTransactionId(null);
     setOpenModal(false);
   };
 
@@ -46,8 +50,9 @@ const TransactionPage: React.FC = () => {
           .map((transaction) => (
             <div
               key={transaction._id}
-              className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${transaction.isCompleted ? "opacity-70 bg-slate-400" : ""
-                }`}
+              className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${
+                transaction.isCompleted ? "opacity-70 bg-slate-400" : ""
+              }`}
             >
               <h3 className="text-lg font-semibold mb-4">
                 Transaction ID: {transaction._id}
@@ -91,13 +96,15 @@ const TransactionPage: React.FC = () => {
                     <button
                       onClick={async () => {
                         const result = await ConfirmationSweetAlert({
-                          title: "Are you sure you want to proceed with the transaction?",
+                          title:
+                            "Are you sure you want to proceed with the transaction?",
                           text: "This action cannot be undone.",
                           icon: "question",
                         });
 
                         if (result.isConfirmed) {
-                          setOpenModal(true);
+                          // Open the modal and pass the transactionId
+                          openModal(transaction._id);
                           console.log("Rating modal should open");
                         } else {
                           // Add any logic you want to execute if the checkout is canceled
@@ -107,7 +114,6 @@ const TransactionPage: React.FC = () => {
                     >
                       Bayar
                     </button>
-
                   </>
                 ) : (
                   <>
@@ -121,7 +127,7 @@ const TransactionPage: React.FC = () => {
       <RatingModal
         isOpenModal={isOpenModal}
         closeModal={closeModal}
-        transactionId={/* Pass the transaction ID here */}
+        transactionId={currentTransactionId || undefined}
       />
     </div>
   );

@@ -51,7 +51,11 @@ const useTransactionStore = create<TransactionStore>((set) => ({
       console.error("Error fetching transactions:", error);
     }
   },
-  handlePaymentComplete: async (transactionId: string, rating: number, comment: string) => {
+  handlePaymentComplete: async (
+    transactionId: string,
+    rating: number,
+    comment: string
+  ) => {
     try {
       const auth_token = Cookies.get("auth_token");
       const headers = {
@@ -59,14 +63,13 @@ const useTransactionStore = create<TransactionStore>((set) => ({
         "Content-Type": "application/json",
       };
 
-      const requestBody = {
-        rating,
-        comment,
-      };
+      const url = `https://sdg-12-b-backend-production.up.railway.app/api/transaction/update/${transactionId}`;
 
       const response = await axios.put(
-        `https://sdg-12-b-backend-production.up.railway.app/api/transaction/update/${transactionId}`,
-        requestBody,
+        url,
+        rating !== undefined || comment !== undefined
+          ? { rating, comment }
+          : null,
         { headers }
       );
 
