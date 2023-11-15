@@ -56,9 +56,8 @@ const RatingModal: React.FC<RatingModalProps> = ({
                     {[1, 2, 3, 4, 5].map((star) => (
                       <span
                         key={star}
-                        className={`cursor-pointer ${
-                          star <= rating ? "text-yellow-500" : "text-gray-300"
-                        }`}
+                        className={`cursor-pointer text-5xl ${star <= rating ? "text-yellow-500" : "text-gray-300"
+                          }`}
                         onClick={() => handleRatingChange(star)}
                       >
                         ★

@@ -38,7 +38,7 @@ const TransactionPage: React.FC = () => {
   return (
     <div className="container mx-auto p-10">
       <h2 className="text-2xl font-semibold mb-6">Transaction History</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3  gap-16">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         {transactions
           .sort(
             (a, b) =>
@@ -50,9 +50,8 @@ const TransactionPage: React.FC = () => {
           .map((transaction) => (
             <div
               key={transaction._id}
-              className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${
-                transaction.isCompleted ? "opacity-70 bg-slate-400" : ""
-              }`}
+              className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${transaction.isCompleted ? "opacity-70 bg-neutral-200" : ""
+                }`}
             >
               <h3 className="text-lg font-semibold mb-4">
                 Transaction ID: {transaction._id}
@@ -89,10 +88,9 @@ const TransactionPage: React.FC = () => {
                   ))}
                 </ul>
               </div>
-              <div className="flex gap-8 items-center mt-12">
+              <div className="flex gap-8 items-center justify-center mt-12">
                 {!transaction.isCompleted ? (
                   <>
-                    <p>Bayar Sekarang</p>
                     <button
                       onClick={async () => {
                         const result = await ConfirmationSweetAlert({
@@ -110,7 +108,7 @@ const TransactionPage: React.FC = () => {
                           // Add any logic you want to execute if the checkout is canceled
                         }
                       }}
-                      className="bg-primary w-16 h-8 rounded-xl text-white"
+                      className="btn btn-primary normal-case text-lg rounded-xl text-white"
                     >
                       Bayar
                     </button>

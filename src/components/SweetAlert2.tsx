@@ -40,10 +40,10 @@ export const ConfirmationSweetAlert = async ({
                 popup.style.borderRadius = '20px';
             }
             if (confirmButton) {
-                confirmButton.style.borderRadius = '10px';
+                confirmButton.style.borderRadius = '15px';
             }
             if (cancelButton) {
-                cancelButton.style.borderRadius = '10px';
+                cancelButton.style.borderRadius = '15px';
             }
         },
     });
