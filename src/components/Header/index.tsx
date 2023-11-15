@@ -3,7 +3,7 @@ import logo from "~/assets/FoodGuardian-logo.png";
 import { mobileNavLinks, navLinks } from "./constants";
 import { LuSearch, LuMenu } from "react-icons/lu";
 import { useState } from "react";
-import { LogOut } from "lucide-react";
+import { ArrowLeftRight, LogOut } from "lucide-react";
 import LogoutSection from "./LogoutSection";
 import CartSection from "./CartSection";
 import useAuthHook from "~/hook/useAuthHook";
@@ -111,8 +111,16 @@ const Header = () => {
                   </label>
                   <ul
                     tabIndex={0}
-                    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-xl w-32"
+                    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-xl"
                   >
+                    <Link to={'/transaction'}>
+                      <li>
+                        <a>
+                          <ArrowLeftRight size={20} />
+                          Transaction
+                        </a>
+                      </li>
+                    </Link>
                     <li onClick={openModal}>
                       <a>
                         <LogOut size={20} />
