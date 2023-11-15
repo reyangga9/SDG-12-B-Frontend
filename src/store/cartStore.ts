@@ -2,6 +2,8 @@ import create from "zustand";
 import Cookies from "js-cookie";
 import { axiosInstance } from "~/lib/axiosInstance";
 import { Restaurant } from "~/hook/useRestaurantHook";
+import Swal from 'sweetalert2';
+
 
 interface CartStore {
   restaurant: Restaurant | null;
@@ -23,13 +25,17 @@ const useCartStore = create<CartStore>((set) => ({
   handleIncrement: async (id: string, restoId: string) => {
     const state = useCartStore.getState();
     if (state.restaurant && restoId !== state.restaurant._id) {
-      console.log("ini resto", state.restaurant._id);
-      // Different restoId detected, show alert
-      const confirmation = window.confirm(
-        "Want to order from this resto instead?\nSure thing, but we’ll need to clear the items in your current cart from the previous resto first."
-      );
+      // Different restoId detected, show SweetAlert2 confirmation
+      const result = await Swal.fire({
+        title: 'Want to order from this resto instead?',
+        text: 'Sure thing, but we’ll need to clear the items in your current cart from the previous resto first.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+      });
 
-      if (confirmation) {
+      if (result.isConfirmed) {
         // User confirmed, clear the cart and proceed
         await state.removeAllCartItems();
       } else {
@@ -37,6 +43,7 @@ const useCartStore = create<CartStore>((set) => ({
         return;
       }
     }
+
     const auth_token = Cookies.get("auth_token");
     const newCount = state.foodCounts[id] ? state.foodCounts[id] + 1 : 1;
     const headers = {
