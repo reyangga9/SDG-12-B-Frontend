@@ -30,7 +30,7 @@ const CartSection = () => {
     return (
       foods?.reduce((totalPrice, food) => {
         const count = foodCounts[food._id] || 0;
-        return totalPrice + food.harga * count;
+        return totalPrice + food.hargaDiscount * count;
       }, 0) || 0
     );
   }, [foods, foodCounts]);
@@ -43,6 +43,7 @@ const CartSection = () => {
   }).format(calculateTotalPrice());
 
   const isFoodSelected = calculateTotalFoodCount() > 0;
+
 
   return (
     <div className="dropdown dropdown-end">
@@ -110,7 +111,7 @@ const CartSection = () => {
                     currency: "IDR",
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0,
-                  }).format(foodItem.harga * foodCount)}
+                  }).format(foodItem.hargaDiscount * foodCount)}
                 </p>
               </div>
             ) : null;
