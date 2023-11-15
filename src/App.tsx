@@ -11,7 +11,6 @@ import { MostLovedPage } from "./pages/guest/RestaurantPage/MostLovedPage";
 import OurShopPage from "./pages/guest/RestaurantPage/OurShopPage";
 import CheckoutPage from "./pages/auth/CheckoutPage";
 import AuthLayout from "./layouts/AuthLayout";
-import SearchPage from "./pages/guest/SearchPage";
 import TransactionPage from "./pages/auth/transaction";
 
 const router = createBrowserRouter([
@@ -29,10 +28,6 @@ const router = createBrowserRouter([
       {
         path: "/about-us",
         element: <AboutUsPage />,
-      },
-      {
-        path: "/search",
-        element: <SearchPage />,
       },
       {
         path: "/login",

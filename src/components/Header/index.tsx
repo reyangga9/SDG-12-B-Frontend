@@ -89,7 +89,7 @@ const Header = () => {
             <button
               id="search"
               className="btn btn-ghost btn-circle"
-              onClick={() => navigate("/search")}
+              onClick={() => navigate("restaurants/our_shop/search")}
             >
               <LuSearch size={20} />
             </button>
