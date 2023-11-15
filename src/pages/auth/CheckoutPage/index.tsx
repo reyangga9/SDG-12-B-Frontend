@@ -190,6 +190,7 @@ const CheckoutPage = () => {
                 if (confirmation) {
                   console.log("checkout berhasil");
                   handleCheckout();
+                  navigate("/transaction");
                 } else {
                   console.log("checkout dibatalkan");
                   // Add any logic you want to execute if the checkout is canceled
