@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuthStore from "~/store/authStore";
 import { axiosInstance } from "~/lib/axiosInstance";
 import axios from "axios";
+import { ErrorSweetAlert, SuccessSweetAlert } from "~/components/SweetAlert2";
 
 const useAuthHook = () => {
     const authStore = useAuthStore(); // Access the auth store
@@ -33,7 +34,8 @@ const useAuthHook = () => {
                 "/users/login",
                 userData
             );
-            console.log("Sign In Success:", response.data);
+            // console.log("Sign In Success:", response.data);
+            SuccessSweetAlert({ title: 'Sign In Success', text: response.data });
 
             // Store the token in a cookie
             Cookies.set("auth_token", response.data.token, { expires: 1 }); // Cookie expires in 1 day
@@ -46,7 +48,7 @@ const useAuthHook = () => {
             // Handle successful sign in, such as setting user authentication state or redirecting the user.
             navigate("/");
         } catch (error) {
-            console.error("Sign In Failed:", error);
+            ErrorSweetAlert({ title: 'Sign In Failed', text: 'Terjadi kesalahan dalam Login.' });
             // Handle sign in failure, such as displaying an error message to the user.
         }
     };
@@ -58,23 +60,33 @@ const useAuthHook = () => {
                 '/users/signup',
                 userData
             );
-            console.log('Sign Up Success:', response.data);
+            // console.log('Sign Up Success:', response.data);
+            SuccessSweetAlert({ title: 'Sign Up Success', text: response.data });
+
+            // Store the token in a cookie
+            Cookies.set("auth_token", response.data.token, { expires: 1 }); // Cookie expires in 1 day
+
+            console.log("Token:", response.data.token); // Log the token to the console
+
+            // Call the login action from the auth store
+            authStore.login(userData, response.data.token);
+
             // Handle successful sign up, such as redirecting the user or showing a success message.
+            navigate("/");
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 if (error.response.status === 400) {
                     // Handle the case where username and email are already in use
-                    alert('Username dan email sudah digunakan.');
+                    ErrorSweetAlert({ title: 'Sign Up Failed', text: 'Username dan email sudah digunakan.' });
                 } else {
                     // Handle other validation errors or display a generic error message
-                    alert('Terjadi kesalahan dalam pendaftaran.');
+                    ErrorSweetAlert({ title: 'Sign Up Failed', text: 'Terjadi kesalahan dalam Register.' });
                     // console.error('Sign Up Failed:', error);
-
                 }
             } else {
                 console.error('Sign Up Failed:', error);
                 // Handle other types of errors, such as network issues
-                alert('Terjadi kesalahan dalam pendaftaran.');
+                ErrorSweetAlert({ title: 'Sign Up Failed', text: 'Terjadi kesalahan dalam pendaftaran.' });
             }
         }
     };
@@ -98,7 +110,7 @@ const useAuthHook = () => {
             );
 
             const userData = response.data.data; // Adjust this based on the actual response structure
-            console.log("tes", userData);
+            // console.log("tes", userData);
             localStorage.setItem("currentUser", JSON.stringify(userData));
             return userData;
         } catch (error) {
@@ -123,7 +135,7 @@ const useAuthHook = () => {
                         }
                     } catch (error) {
                         // Tangani kesalahan pengambilan data pengguna dari server
-                        console.error("Error fetching user data from server:", error);
+                        // console.error("Error fetching user data from server:", error);
                     }
                 } else {
                     // Gunakan data pengguna dari localStorage jika ada
@@ -132,7 +144,7 @@ const useAuthHook = () => {
                 }
             } else {
                 // Tangani kasus ketika auth_token tidak tersedia atau bukan string
-                console.error("Invalid or missing auth_token.");
+                // console.error("Invalid or missing auth_token.");
             }
         };
 

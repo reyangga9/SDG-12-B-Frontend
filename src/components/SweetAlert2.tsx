@@ -1,16 +1,16 @@
-import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2'; // Import SweetAlertIcon
+import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
 
-interface ConfirmationSweetAlertProps {
+interface SweetAlertProps {
     title: string;
     text: string;
-    icon?: SweetAlertIcon; // Use SweetAlertIcon as the type
+    icon?: SweetAlertIcon;
 }
 
 export const ConfirmationSweetAlert = async ({
     title,
     text,
     icon,
-}: ConfirmationSweetAlertProps): Promise<SweetAlertResult<SweetAlertIcon>> => {
+}: SweetAlertProps): Promise<SweetAlertResult<SweetAlertIcon>> => {
     const result: SweetAlertResult<SweetAlertIcon> = await Swal.fire({
         title: title,
         text: text,
@@ -49,4 +49,41 @@ export const ConfirmationSweetAlert = async ({
     });
 
     return result;
+};
+
+interface ErrorSweetAlertProps {
+    title?: string;
+    text?: string;
+}
+
+export const ErrorSweetAlert = ({ title, text }: ErrorSweetAlertProps) => {
+    Swal.fire({
+        title: title || 'Oops...',
+        text: text || 'Something went wrong!',
+        icon: 'error',
+        iconColor: '#ef4444',
+        color: 'black',
+        position: 'center',
+        timer: 3000,
+        showConfirmButton: false,
+        customClass: {
+            popup: 'rounded-3xl',
+        },
+    });
+};
+
+export const SuccessSweetAlert = ({ title, text }: SweetAlertProps) => {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: 'success',
+        iconColor: '#22c55e',
+        color: 'black',
+        position: 'center',
+        timer: 1500,
+        showConfirmButton: false,
+        customClass: {
+            popup: 'rounded-3xl',
+        },
+    });
 };
