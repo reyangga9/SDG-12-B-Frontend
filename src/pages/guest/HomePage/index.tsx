@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { cardData, cardData2 } from "./constants";
 import hero from "~/assets/hero.png";
 import hero2 from "~/assets/hero2.png";
-
 import useCartStore from "~/store/cartStore";
+import useAuthHook from "~/hook/useAuthHook";
 
 const HomePage = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { isAuthenticated } = useAuthHook();
 
   const fetchCartData = useCartStore((state) => state.fetchCartData);
 
@@ -27,9 +28,9 @@ const HomePage = () => {
               Welcome! Join us in our mission to discover easy ways to rescue
               food, cut costs, and protect our planet.
             </p>
-            <button className="btn btn-primary">
+            <Link to={isAuthenticated ? "/recommendations" : "/login"} className="btn btn-primary">
               Take Action and Save Food
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -92,7 +93,9 @@ const HomePage = () => {
             <h1 className="mb-5 text-5xl font-bold">
               Are you ready to order with the best deals?
             </h1>
-            <button className="btn btn-primary">PROCEED TO ORDER</button>
+            <Link to={isAuthenticated ? "/recommendations" : "/login"} className="btn btn-primary">
+              PROCEED TO ORDER
+            </Link>
           </div>
         </div>
       </div>

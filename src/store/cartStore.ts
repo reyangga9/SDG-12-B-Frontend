@@ -92,29 +92,40 @@ const useCartStore = create<CartStore>((set) => ({
     }
   },
   fetchCartData: async () => {
-    const auth_token = Cookies.get("auth_token");
-    const headers = {
-      Authorization: `Bearer ${auth_token}`,
-    };
-    const response = await axiosInstance.get("/cart/user/allCart", { headers });
-    if (response.data.is_success) {
-      const newFoodCounts: { [id: string]: number } = {};
-      const resto = response.data.resto[0];
-      const foodList = response.data.food;
-      // Update newFoodCounts, restaurant, and foods based on the data
-      foodList.forEach((food: any) => {
-        newFoodCounts[food._id] = food.quantity; // Assuming food has an ID and quantity property
-      });
+    try {
+      const auth_token = Cookies.get("auth_token");
+      const headers = {
+        Authorization: `Bearer ${auth_token}`,
+      };
+      const response = await axiosInstance.get("/cart/user/allCart", { headers });
 
-      set(() => ({
-        restaurant: resto,
-        foods: foodList,
-        foodCounts: newFoodCounts,
-        loading: false,
-      }));
+      if (response.data.is_success) {
+        const newFoodCounts: { [id: string]: number } = {};
+        const resto = response.data.resto[0];
+        const foodList = response.data.food;
+
+        // Update newFoodCounts, restaurant, and foods based on the data
+        foodList.forEach((food: any) => {
+          newFoodCounts[food._id] = food.quantity; // Assuming food has an ID and quantity property
+        });
+
+        set(() => ({
+          restaurant: resto,
+          foods: foodList,
+          foodCounts: newFoodCounts,
+          loading: false,
+        }));
+      } else {
+        // Handle the case where the response indicates an error (e.g., response.data.is_success is false)
+        console.error("Error: Response indicates failure");
+        // You can add additional error handling code here if needed
+      }
+    } catch (error) {
+      // Handle any exceptions that occur during the execution of the function
+      console.error("An error occurred:", error);
+      // You can also set an error state or display an error message to the user
     }
   },
-
   removeAllCartItems: async () => {
     const auth_token = Cookies.get("auth_token");
     const headers = {

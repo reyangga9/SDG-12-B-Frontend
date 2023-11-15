@@ -24,7 +24,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   // Determine if the current route is CheckoutPage
-  const isCheckoutPage = location.pathname === "/checkout"; // Change "/checkout" to the ac
+  const isCheckoutPage = location.pathname === "/checkout";
 
   return (
     <div className="relative mt-14">
@@ -34,7 +34,6 @@ const Header = () => {
             <div className="md:hidden">
               <input id="my-drawer" type="checkbox" className="drawer-toggle" />
               <div className="drawer-content">
-                {/* Page content here */}
                 <label
                   htmlFor="my-drawer"
                   className="btn btn-ghost btn-circle drawer-button text-2xl mt-1"
@@ -49,7 +48,6 @@ const Header = () => {
                   className="drawer-overlay"
                 ></label>
                 <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content font-semibold">
-                  {/* Sidebar content here */}
                   {mobileNavLinks.map((item, index) => (
                     <li key={index}>
                       <Link
@@ -95,7 +93,6 @@ const Header = () => {
             </button>
             <div>
               {isAuthenticated ? (
-                // If user is authenticated, render Logout button
                 <div className="dropdown dropdown-end px-[14.5px] font-medium">
                   <label
                     tabIndex={0}
@@ -113,14 +110,12 @@ const Header = () => {
                     tabIndex={0}
                     className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-xl"
                   >
-                    <Link to={'/transaction'}>
-                      <li>
-                        <a>
-                          <ArrowLeftRight size={20} />
-                          Transaction
-                        </a>
-                      </li>
-                    </Link>
+                    <li>
+                      <Link to="/transaction">
+                        <ArrowLeftRight size={20} />
+                        Transaction
+                      </Link>
+                    </li>
                     <li onClick={openModal}>
                       <a>
                         <LogOut size={20} />
@@ -130,7 +125,6 @@ const Header = () => {
                   </ul>
                 </div>
               ) : (
-                // If user is not authenticated, render Login button
                 <ul className="menu menu-horizontal px-1 font-semibold max-md:hidden">
                   <li>
                     <Link
@@ -150,8 +144,7 @@ const Header = () => {
               handleLogout={handleLogout}
               closeModal={closeModal}
             />
-            {!isCheckoutPage && <CartSection />}{" "}
-            {/* Render CartSection only on CheckoutPage */}
+            {!isCheckoutPage && <CartSection />}
           </div>
         </div>
       </div>

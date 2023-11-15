@@ -130,7 +130,7 @@ const CartSection = () => {
               </button>
             </div>
           ) : (
-            <div className="flex flex-col justify-center items-center mt-32">
+            <div className="flex flex-col justify-center items-center gap-5 py-20">
               <ShoppingCart size={40} />
               <p className="text-lg text-center text-neutral-600">
                 Your cart is empty. Let's discover our collections of popular
