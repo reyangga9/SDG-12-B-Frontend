@@ -49,7 +49,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                   />
                 </figure>
                 <div className="card-body px-3 py-3 ">
-                  <h2 className="text-[22px] font-semibold h-5">
+                  <h2 className="text-[22px] font-semibold h-10">
                     {food.makanan}
                   </h2>
                   {isOutOfStock ? (

@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useTransactionStore from "../../../store/transactionStore";
 import "./index.css";
+import RatingModal from "./RatingModal";
+import { ConfirmationSweetAlert } from "~/components/SweetAlert2";
 
 const TransactionPage: React.FC = () => {
   const { transactions, fetchTransactions, handlePaymentComplete } =
     useTransactionStore();
 
   useEffect(() => {
-    // Fetch transaction data when the component mounts
     fetchTransactions();
   }, [fetchTransactions]);
 
@@ -16,10 +17,18 @@ const TransactionPage: React.FC = () => {
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
-    // const hours = date.getHours().toString().padStart(2, "0");
-    // const minute = date.getMinutes().toString().padStart(2, "0");
     const formattedDate = `${day}-${month}-${year} `;
     return formattedDate;
+  };
+
+  const [isOpenModal, setOpenModal] = useState(false);
+
+  const openModal = () => {
+    setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -32,15 +41,13 @@ const TransactionPage: React.FC = () => {
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
           .sort((a, b) => {
-            // Sort by isCompleted status (completed transactions at the end)
             return a.isCompleted ? 1 : b.isCompleted ? -1 : 0;
           })
           .map((transaction) => (
             <div
               key={transaction._id}
-              className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${
-                transaction.isCompleted ? "opacity-70 bg-slate-400" : ""
-              }`}
+              className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${transaction.isCompleted ? "opacity-70 bg-slate-400" : ""
+                }`}
             >
               <h3 className="text-lg font-semibold mb-4">
                 Transaction ID: {transaction._id}
@@ -82,16 +89,17 @@ const TransactionPage: React.FC = () => {
                   <>
                     <p>Bayar Sekarang</p>
                     <button
-                      onClick={() => {
-                        const confirmation = window.confirm(
-                          "Are you sure you want to proceed with the transaction?"
-                        );
-                        if (confirmation) {
-                          console.log("checkout berhasil");
-                          // console.log(transaction);
-                          handlePaymentComplete(transaction._id);
+                      onClick={async () => {
+                        const result = await ConfirmationSweetAlert({
+                          title: "Are you sure you want to proceed with the transaction?",
+                          text: "This action cannot be undone.",
+                          icon: "question",
+                        });
+
+                        if (result.isConfirmed) {
+                          setOpenModal(true);
+                          console.log("Rating modal should open");
                         } else {
-                          console.log("checkout dibatalkan");
                           // Add any logic you want to execute if the checkout is canceled
                         }
                       }}
@@ -99,6 +107,7 @@ const TransactionPage: React.FC = () => {
                     >
                       Bayar
                     </button>
+
                   </>
                 ) : (
                   <>
@@ -109,6 +118,11 @@ const TransactionPage: React.FC = () => {
             </div>
           ))}
       </div>
+      <RatingModal
+        isOpenModal={isOpenModal}
+        closeModal={closeModal}
+        transactionId={/* Pass the transaction ID here */}
+      />
     </div>
   );
 };

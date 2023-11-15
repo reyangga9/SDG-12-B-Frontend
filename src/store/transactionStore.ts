@@ -1,4 +1,3 @@
-// transactionStore.ts
 import create from "zustand";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -24,7 +23,11 @@ interface Transaction {
 interface TransactionStore {
   transactions: Transaction[];
   fetchTransactions: () => Promise<void>;
-  handlePaymentComplete: (transactionId: string) => Promise<void>;
+  handlePaymentComplete: (
+    transactionId: string,
+    rating: number,
+    comment: string
+  ) => Promise<void>;
 }
 
 const useTransactionStore = create<TransactionStore>((set) => ({
@@ -46,31 +49,32 @@ const useTransactionStore = create<TransactionStore>((set) => ({
       }
     } catch (error) {
       console.error("Error fetching transactions:", error);
-      // Handle error fetching transactions
     }
   },
-  handlePaymentComplete: async (transactionId: string) => {
+  handlePaymentComplete: async (transactionId: string, rating: number, comment: string) => {
     try {
       const auth_token = Cookies.get("auth_token");
       const headers = {
         Authorization: `Bearer ${auth_token}`,
+        "Content-Type": "application/json",
       };
 
-      // Make a request to update the payment status to completed
+      const requestBody = {
+        rating,
+        comment,
+      };
+
       const response = await axios.put(
         `https://sdg-12-b-backend-production.up.railway.app/api/transaction/update/${transactionId}`,
-        null,
+        requestBody,
         { headers }
       );
 
       if (response.status === 200) {
-        // Trigger a fetch to get the updated data
         await useTransactionStore.getState().fetchTransactions();
-        // console.log("Payment status updated successfully");
       }
     } catch (error) {
       console.error("Error updating payment status:", error);
-      // Handle error updating payment status
     }
   },
 }));
