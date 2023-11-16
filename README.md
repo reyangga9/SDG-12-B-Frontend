@@ -21,8 +21,6 @@ To install and run FoodGuardian on your local machine, follow these steps:
 ## yarn install
 ## yarn dev
 
-# FoodGuardian
-
 FoodGuardian is a project that helps you keep track of your food items. It can be accessed at http://localhost:8080.
 
 ## Contributors
