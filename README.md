@@ -18,9 +18,8 @@ To install and run FoodGuardian on your local machine, follow these steps:
 2. Open a terminal and navigate to the project directory.
 3. Run the following commands:
 
-```bash``
-yarn install
-yarn dev
+## yarn install
+## yarn dev
 
 # FoodGuardian
 
