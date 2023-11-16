@@ -1,27 +1,36 @@
-# React + TypeScript + Vite
+# FoodGuardian
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Description
 
-Currently, two official plugins are available:
+FoodGuardian aims to combat food wastage by offering an innovative solution. It provides a platform that enables food sellers to offer discounts on food items that are nearing their expiration date or are at risk of being wasted. FoodGuardian directly contributes to the achievement of Sustainable Development Goal (SDG) 12, which focuses on "Ensuring Sustainable Consumption and Production."
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Restaurant Search:** Users can search for restaurants.
+- **View Restaurant Information:** Users can access information about restaurants that offer food items approaching their expiration date or at risk of becoming food waste.
+- **User Ratings and Reviews:** Users can rate and review restaurants based on their efforts to reduce food waste.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## How to Install & Run
 
-- Configure the top-level `parserOptions` property like this:
+To install and run FoodGuardian on your local machine, follow these steps:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+1. Clone the repository to your local system.
+2. Open a terminal and navigate to the project directory.
+3. Run the following commands:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```bash
+yarn install
+yarn dev
+
+# FoodGuardian
+
+FoodGuardian is a project that helps you keep track of your food items. It can be accessed at http://localhost:8080.
+
+## Contributors
+
+- Muhammad Faried Risky ([GitHub](https://github.com/fariedrisky))
+- Anggara Ramadhan ([GitHub](https://github.com/reyangga9))
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
