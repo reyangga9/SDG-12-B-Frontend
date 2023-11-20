@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useTransactionStore from "../../../store/transactionStore";
-import "./index.css";
 import RatingModal from "./RatingModal";
 import { ConfirmationSweetAlert } from "~/components/SweetAlert2";
 
@@ -38,7 +37,7 @@ const TransactionPage: React.FC = () => {
   return (
     <div className="container mx-auto p-10">
       <h2 className="text-2xl font-semibold mb-6">Transaction History</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3">
+      <div className="md:grid lg:grid-cols-2 xl:grid-cols-3 ">
         {transactions
           .sort(
             (a, b) =>
@@ -50,8 +49,9 @@ const TransactionPage: React.FC = () => {
           .map((transaction) => (
             <div
               key={transaction._id}
-              className={`card h-96 w-96 bg-base-100 shadow-md p-6 ${transaction.isCompleted ? "opacity-70 bg-neutral-200" : ""
-                }`}
+              className={`card 96 w-96 bg-base-100 shadow-md p-6 mb-8 ${
+                transaction.isCompleted ? "opacity-70 bg-neutral-200" : ""
+              }`}
             >
               <h3 className="text-lg font-semibold mb-4">
                 Transaction ID: {transaction._id}
